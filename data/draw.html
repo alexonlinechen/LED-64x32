@@ -1,0 +1,478 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <title>DrawMode</title>
+</head>
+<body style="background-color: gray">
+    <table class="reference" style="text-align: center;">
+        <tr>
+        <td width="20%"> <h3>選取顏色:</h3>
+            <div style="margin:auto;width:236px;">
+                <img style="margin-right:2px;margin-bottom: -8px;" src="./img_colormap.gif" usemap="#colormap" alt="colormap">
+                <map id="colormap" name="colormap" onmouseout="mouseOutMap()">
+                    <area style="cursor:pointer" shape="poly" coords="63,0,72,4,72,15,63,19,54,15,54,4" onclick="clickColor(&quot;#003366&quot;,-200,54)" onmouseover="mouseOverColor(&quot;#003366&quot;)" alt="#003366">
+                    <area style="cursor:pointer" shape="poly" coords="81,0,90,4,90,15,81,19,72,15,72,4" onclick="clickColor(&quot;#336699&quot;,-200,72)" onmouseover="mouseOverColor(&quot;#336699&quot;)" alt="#336699">
+                    <area style="cursor:pointer" shape="poly" coords="99,0,108,4,108,15,99,19,90,15,90,4" onclick="clickColor(&quot;#3366CC&quot;,-200,90)" onmouseover="mouseOverColor(&quot;#3366CC&quot;)" alt="#3366CC">
+                    <area style="cursor:pointer" shape="poly" coords="117,0,126,4,126,15,117,19,108,15,108,4" onclick="clickColor(&quot;#003399&quot;,-200,108)" onmouseover="mouseOverColor(&quot;#003399&quot;)" alt="#003399">
+                    <area style="cursor:pointer" shape="poly" coords="135,0,144,4,144,15,135,19,126,15,126,4" onclick="clickColor(&quot;#000099&quot;,-200,126)" onmouseover="mouseOverColor(&quot;#000099&quot;)" alt="#000099">
+                    <area style="cursor:pointer" shape="poly" coords="153,0,162,4,162,15,153,19,144,15,144,4" onclick="clickColor(&quot;#0000CC&quot;,-200,144)" onmouseover="mouseOverColor(&quot;#0000CC&quot;)" alt="#0000CC">
+                    <area style="cursor:pointer" shape="poly" coords="171,0,180,4,180,15,171,19,162,15,162,4" onclick="clickColor(&quot;#000066&quot;,-200,162)" onmouseover="mouseOverColor(&quot;#000066&quot;)" alt="#000066">
+                    <area style="cursor:pointer" shape="poly" coords="54,15,63,19,63,30,54,34,45,30,45,19" onclick="clickColor(&quot;#006666&quot;,-185,45)" onmouseover="mouseOverColor(&quot;#006666&quot;)" alt="#006666">
+                    <area style="cursor:pointer" shape="poly" coords="72,15,81,19,81,30,72,34,63,30,63,19" onclick="clickColor(&quot;#006699&quot;,-185,63)" onmouseover="mouseOverColor(&quot;#006699&quot;)" alt="#006699">
+                    <area style="cursor:pointer" shape="poly" coords="90,15,99,19,99,30,90,34,81,30,81,19" onclick="clickColor(&quot;#0099CC&quot;,-185,81)" onmouseover="mouseOverColor(&quot;#0099CC&quot;)" alt="#0099CC">
+                    <area style="cursor:pointer" shape="poly" coords="108,15,117,19,117,30,108,34,99,30,99,19" onclick="clickColor(&quot;#0066CC&quot;,-185,99)" onmouseover="mouseOverColor(&quot;#0066CC&quot;)" alt="#0066CC">
+                    <area style="cursor:pointer" shape="poly" coords="126,15,135,19,135,30,126,34,117,30,117,19" onclick="clickColor(&quot;#0033CC&quot;,-185,117)" onmouseover="mouseOverColor(&quot;#0033CC&quot;)" alt="#0033CC">
+                    <area style="cursor:pointer" shape="poly" coords="144,15,153,19,153,30,144,34,135,30,135,19" onclick="clickColor(&quot;#0000FF&quot;,-185,135)" onmouseover="mouseOverColor(&quot;#0000FF&quot;)" alt="#0000FF">
+                    <area style="cursor:pointer" shape="poly" coords="162,15,171,19,171,30,162,34,153,30,153,19" onclick="clickColor(&quot;#3333FF&quot;,-185,153)" onmouseover="mouseOverColor(&quot;#3333FF&quot;)" alt="#3333FF">
+                    <area style="cursor:pointer" shape="poly" coords="180,15,189,19,189,30,180,34,171,30,171,19" onclick="clickColor(&quot;#333399&quot;,-185,171)" onmouseover="mouseOverColor(&quot;#333399&quot;)" alt="#333399">
+                    <area style="cursor:pointer" shape="poly" coords="45,30,54,34,54,45,45,49,36,45,36,34" onclick="clickColor(&quot;#669999&quot;,-170,36)" onmouseover="mouseOverColor(&quot;#669999&quot;)" alt="#669999">
+                    <area style="cursor:pointer" shape="poly" coords="63,30,72,34,72,45,63,49,54,45,54,34" onclick="clickColor(&quot;#009999&quot;,-170,54)" onmouseover="mouseOverColor(&quot;#009999&quot;)" alt="#009999">
+                    <area style="cursor:pointer" shape="poly" coords="81,30,90,34,90,45,81,49,72,45,72,34" onclick="clickColor(&quot;#33CCCC&quot;,-170,72)" onmouseover="mouseOverColor(&quot;#33CCCC&quot;)" alt="#33CCCC">
+                    <area style="cursor:pointer" shape="poly" coords="99,30,108,34,108,45,99,49,90,45,90,34" onclick="clickColor(&quot;#00CCFF&quot;,-170,90)" onmouseover="mouseOverColor(&quot;#00CCFF&quot;)" alt="#00CCFF">
+                    <area style="cursor:pointer" shape="poly" coords="117,30,126,34,126,45,117,49,108,45,108,34" onclick="clickColor(&quot;#0099FF&quot;,-170,108)" onmouseover="mouseOverColor(&quot;#0099FF&quot;)" alt="#0099FF">
+                    <area style="cursor:pointer" shape="poly" coords="135,30,144,34,144,45,135,49,126,45,126,34" onclick="clickColor(&quot;#0066FF&quot;,-170,126)" onmouseover="mouseOverColor(&quot;#0066FF&quot;)" alt="#0066FF">
+                    <area style="cursor:pointer" shape="poly" coords="153,30,162,34,162,45,153,49,144,45,144,34" onclick="clickColor(&quot;#3366FF&quot;,-170,144)" onmouseover="mouseOverColor(&quot;#3366FF&quot;)" alt="#3366FF">
+                    <area style="cursor:pointer" shape="poly" coords="171,30,180,34,180,45,171,49,162,45,162,34" onclick="clickColor(&quot;#3333CC&quot;,-170,162)" onmouseover="mouseOverColor(&quot;#3333CC&quot;)" alt="#3333CC">
+                    <area style="cursor:pointer" shape="poly" coords="189,30,198,34,198,45,189,49,180,45,180,34" onclick="clickColor(&quot;#666699&quot;,-170,180)" onmouseover="mouseOverColor(&quot;#666699&quot;)" alt="#666699">
+                    <area style="cursor:pointer" shape="poly" coords="36,45,45,49,45,60,36,64,27,60,27,49" onclick="clickColor(&quot;#339966&quot;,-155,27)" onmouseover="mouseOverColor(&quot;#339966&quot;)" alt="#339966">
+                    <area style="cursor:pointer" shape="poly" coords="54,45,63,49,63,60,54,64,45,60,45,49" onclick="clickColor(&quot;#00CC99&quot;,-155,45)" onmouseover="mouseOverColor(&quot;#00CC99&quot;)" alt="#00CC99">
+                    <area style="cursor:pointer" shape="poly" coords="72,45,81,49,81,60,72,64,63,60,63,49" onclick="clickColor(&quot;#00FFCC&quot;,-155,63)" onmouseover="mouseOverColor(&quot;#00FFCC&quot;)" alt="#00FFCC">
+                    <area style="cursor:pointer" shape="poly" coords="90,45,99,49,99,60,90,64,81,60,81,49" onclick="clickColor(&quot;#00FFFF&quot;,-155,81)" onmouseover="mouseOverColor(&quot;#00FFFF&quot;)" alt="#00FFFF">
+                    <area style="cursor:pointer" shape="poly" coords="108,45,117,49,117,60,108,64,99,60,99,49" onclick="clickColor(&quot;#33CCFF&quot;,-155,99)" onmouseover="mouseOverColor(&quot;#33CCFF&quot;)" alt="#33CCFF">
+                    <area style="cursor:pointer" shape="poly" coords="126,45,135,49,135,60,126,64,117,60,117,49" onclick="clickColor(&quot;#3399FF&quot;,-155,117)" onmouseover="mouseOverColor(&quot;#3399FF&quot;)" alt="#3399FF">
+                    <area style="cursor:pointer" shape="poly" coords="144,45,153,49,153,60,144,64,135,60,135,49" onclick="clickColor(&quot;#6699FF&quot;,-155,135)" onmouseover="mouseOverColor(&quot;#6699FF&quot;)" alt="#6699FF">
+                    <area style="cursor:pointer" shape="poly" coords="162,45,171,49,171,60,162,64,153,60,153,49" onclick="clickColor(&quot;#6666FF&quot;,-155,153)" onmouseover="mouseOverColor(&quot;#6666FF&quot;)" alt="#6666FF">
+                    <area style="cursor:pointer" shape="poly" coords="180,45,189,49,189,60,180,64,171,60,171,49" onclick="clickColor(&quot;#6600FF&quot;,-155,171)" onmouseover="mouseOverColor(&quot;#6600FF&quot;)" alt="#6600FF">
+                    <area style="cursor:pointer" shape="poly" coords="198,45,207,49,207,60,198,64,189,60,189,49" onclick="clickColor(&quot;#6600CC&quot;,-155,189)" onmouseover="mouseOverColor(&quot;#6600CC&quot;)" alt="#6600CC">
+                    <area style="cursor:pointer" shape="poly" coords="27,60,36,64,36,75,27,79,18,75,18,64" onclick="clickColor(&quot;#339933&quot;,-140,18)" onmouseover="mouseOverColor(&quot;#339933&quot;)" alt="#339933">
+                    <area style="cursor:pointer" shape="poly" coords="45,60,54,64,54,75,45,79,36,75,36,64" onclick="clickColor(&quot;#00CC66&quot;,-140,36)" onmouseover="mouseOverColor(&quot;#00CC66&quot;)" alt="#00CC66">
+                    <area style="cursor:pointer" shape="poly" coords="63,60,72,64,72,75,63,79,54,75,54,64" onclick="clickColor(&quot;#00FF99&quot;,-140,54)" onmouseover="mouseOverColor(&quot;#00FF99&quot;)" alt="#00FF99">
+                    <area style="cursor:pointer" shape="poly" coords="81,60,90,64,90,75,81,79,72,75,72,64" onclick="clickColor(&quot;#66FFCC&quot;,-140,72)" onmouseover="mouseOverColor(&quot;#66FFCC&quot;)" alt="#66FFCC">
+                    <area style="cursor:pointer" shape="poly" coords="99,60,108,64,108,75,99,79,90,75,90,64" onclick="clickColor(&quot;#66FFFF&quot;,-140,90)" onmouseover="mouseOverColor(&quot;#66FFFF&quot;)" alt="#66FFFF">
+                    <area style="cursor:pointer" shape="poly" coords="117,60,126,64,126,75,117,79,108,75,108,64" onclick="clickColor(&quot;#66CCFF&quot;,-140,108)" onmouseover="mouseOverColor(&quot;#66CCFF&quot;)" alt="#66CCFF">
+                    <area style="cursor:pointer" shape="poly" coords="135,60,144,64,144,75,135,79,126,75,126,64" onclick="clickColor(&quot;#99CCFF&quot;,-140,126)" onmouseover="mouseOverColor(&quot;#99CCFF&quot;)" alt="#99CCFF">
+                    <area style="cursor:pointer" shape="poly" coords="153,60,162,64,162,75,153,79,144,75,144,64" onclick="clickColor(&quot;#9999FF&quot;,-140,144)" onmouseover="mouseOverColor(&quot;#9999FF&quot;)" alt="#9999FF">
+                    <area style="cursor:pointer" shape="poly" coords="171,60,180,64,180,75,171,79,162,75,162,64" onclick="clickColor(&quot;#9966FF&quot;,-140,162)" onmouseover="mouseOverColor(&quot;#9966FF&quot;)" alt="#9966FF">
+                    <area style="cursor:pointer" shape="poly" coords="189,60,198,64,198,75,189,79,180,75,180,64" onclick="clickColor(&quot;#9933FF&quot;,-140,180)" onmouseover="mouseOverColor(&quot;#9933FF&quot;)" alt="#9933FF">
+                    <area style="cursor:pointer" shape="poly" coords="207,60,216,64,216,75,207,79,198,75,198,64" onclick="clickColor(&quot;#9900FF&quot;,-140,198)" onmouseover="mouseOverColor(&quot;#9900FF&quot;)" alt="#9900FF">
+                    <area style="cursor:pointer" shape="poly" coords="18,75,27,79,27,90,18,94,9,90,9,79" onclick="clickColor(&quot;#006600&quot;,-125,9)" onmouseover="mouseOverColor(&quot;#006600&quot;)" alt="#006600">
+                    <area style="cursor:pointer" shape="poly" coords="36,75,45,79,45,90,36,94,27,90,27,79" onclick="clickColor(&quot;#00CC00&quot;,-125,27)" onmouseover="mouseOverColor(&quot;#00CC00&quot;)" alt="#00CC00">
+                    <area style="cursor:pointer" shape="poly" coords="54,75,63,79,63,90,54,94,45,90,45,79" onclick="clickColor(&quot;#00FF00&quot;,-125,45)" onmouseover="mouseOverColor(&quot;#00FF00&quot;)" alt="#00FF00">
+                    <area style="cursor:pointer" shape="poly" coords="72,75,81,79,81,90,72,94,63,90,63,79" onclick="clickColor(&quot;#66FF99&quot;,-125,63)" onmouseover="mouseOverColor(&quot;#66FF99&quot;)" alt="#66FF99">
+                    <area style="cursor:pointer" shape="poly" coords="90,75,99,79,99,90,90,94,81,90,81,79" onclick="clickColor(&quot;#99FFCC&quot;,-125,81)" onmouseover="mouseOverColor(&quot;#99FFCC&quot;)" alt="#99FFCC">
+                    <area style="cursor:pointer" shape="poly" coords="108,75,117,79,117,90,108,94,99,90,99,79" onclick="clickColor(&quot;#CCFFFF&quot;,-125,99)" onmouseover="mouseOverColor(&quot;#CCFFFF&quot;)" alt="#CCFFFF">
+                    <area style="cursor:pointer" shape="poly" coords="126,75,135,79,135,90,126,94,117,90,117,79" onclick="clickColor(&quot;#CCCCFF&quot;,-125,117)" onmouseover="mouseOverColor(&quot;#CCCCFF&quot;)" alt="#CCCCFF">
+                    <area style="cursor:pointer" shape="poly" coords="144,75,153,79,153,90,144,94,135,90,135,79" onclick="clickColor(&quot;#CC99FF&quot;,-125,135)" onmouseover="mouseOverColor(&quot;#CC99FF&quot;)" alt="#CC99FF">
+                    <area style="cursor:pointer" shape="poly" coords="162,75,171,79,171,90,162,94,153,90,153,79" onclick="clickColor(&quot;#CC66FF&quot;,-125,153)" onmouseover="mouseOverColor(&quot;#CC66FF&quot;)" alt="#CC66FF">
+                    <area style="cursor:pointer" shape="poly" coords="180,75,189,79,189,90,180,94,171,90,171,79" onclick="clickColor(&quot;#CC33FF&quot;,-125,171)" onmouseover="mouseOverColor(&quot;#CC33FF&quot;)" alt="#CC33FF">
+                    <area style="cursor:pointer" shape="poly" coords="198,75,207,79,207,90,198,94,189,90,189,79" onclick="clickColor(&quot;#CC00FF&quot;,-125,189)" onmouseover="mouseOverColor(&quot;#CC00FF&quot;)" alt="#CC00FF">
+                    <area style="cursor:pointer" shape="poly" coords="216,75,225,79,225,90,216,94,207,90,207,79" onclick="clickColor(&quot;#9900CC&quot;,-125,207)" onmouseover="mouseOverColor(&quot;#9900CC&quot;)" alt="#9900CC">
+                    <area style="cursor:pointer" shape="poly" coords="9,90,18,94,18,105,9,109,0,105,0,94" onclick="clickColor(&quot;#003300&quot;,-110,0)" onmouseover="mouseOverColor(&quot;#003300&quot;)" alt="#003300">
+                    <area style="cursor:pointer" shape="poly" coords="27,90,36,94,36,105,27,109,18,105,18,94" onclick="clickColor(&quot;#009933&quot;,-110,18)" onmouseover="mouseOverColor(&quot;#009933&quot;)" alt="#009933">
+                    <area style="cursor:pointer" shape="poly" coords="45,90,54,94,54,105,45,109,36,105,36,94" onclick="clickColor(&quot;#33CC33&quot;,-110,36)" onmouseover="mouseOverColor(&quot;#33CC33&quot;)" alt="#33CC33">
+                    <area style="cursor:pointer" shape="poly" coords="63,90,72,94,72,105,63,109,54,105,54,94" onclick="clickColor(&quot;#66FF66&quot;,-110,54)" onmouseover="mouseOverColor(&quot;#66FF66&quot;)" alt="#66FF66"><area style="cursor:pointer" shape="poly" coords="81,90,90,94,90,105,81,109,72,105,72,94" onclick="clickColor(&quot;#99FF99&quot;,-110,72)" onmouseover="mouseOverColor(&quot;#99FF99&quot;)" alt="#99FF99">
+                    <area style="cursor:pointer" shape="poly" coords="99,90,108,94,108,105,99,109,90,105,90,94" onclick="clickColor(&quot;#CCFFCC&quot;,-110,90)" onmouseover="mouseOverColor(&quot;#CCFFCC&quot;)" alt="#CCFFCC"><area style="cursor:pointer" shape="poly" coords="117,90,126,94,126,105,117,109,108,105,108,94" onclick="clickColor(&quot;#FFFFFF&quot;,-110,108)" onmouseover="mouseOverColor(&quot;#FFFFFF&quot;)" alt="#FFFFFF">
+                    <area style="cursor:pointer" shape="poly" coords="135,90,144,94,144,105,135,109,126,105,126,94" onclick="clickColor(&quot;#FFCCFF&quot;,-110,126)" onmouseover="mouseOverColor(&quot;#FFCCFF&quot;)" alt="#FFCCFF">
+                    <area style="cursor:pointer" shape="poly" coords="153,90,162,94,162,105,153,109,144,105,144,94" onclick="clickColor(&quot;#FF99FF&quot;,-110,144)" onmouseover="mouseOverColor(&quot;#FF99FF&quot;)" alt="#FF99FF"><area style="cursor:pointer" shape="poly" coords="171,90,180,94,180,105,171,109,162,105,162,94" onclick="clickColor(&quot;#FF66FF&quot;,-110,162)" onmouseover="mouseOverColor(&quot;#FF66FF&quot;)" alt="#FF66FF">
+                    <area style="cursor:pointer" shape="poly" coords="189,90,198,94,198,105,189,109,180,105,180,94" onclick="clickColor(&quot;#FF00FF&quot;,-110,180)" onmouseover="mouseOverColor(&quot;#FF00FF&quot;)" alt="#FF00FF">
+                    <area style="cursor:pointer" shape="poly" coords="207,90,216,94,216,105,207,109,198,105,198,94" onclick="clickColor(&quot;#CC00CC&quot;,-110,198)" onmouseover="mouseOverColor(&quot;#CC00CC&quot;)" alt="#CC00CC">
+                    <area style="cursor:pointer" shape="poly" coords="225,90,234,94,234,105,225,109,216,105,216,94" onclick="clickColor(&quot;#660066&quot;,-110,216)" onmouseover="mouseOverColor(&quot;#660066&quot;)" alt="#660066"><area style="cursor:pointer" shape="poly" coords="18,105,27,109,27,120,18,124,9,120,9,109" onclick="clickColor(&quot;#336600&quot;,-95,9)" onmouseover="mouseOverColor(&quot;#336600&quot;)" alt="#336600"><area style="cursor:pointer" shape="poly" coords="36,105,45,109,45,120,36,124,27,120,27,109" onclick="clickColor(&quot;#009900&quot;,-95,27)" onmouseover="mouseOverColor(&quot;#009900&quot;)" alt="#009900">
+                    <area style="cursor:pointer" shape="poly" coords="54,105,63,109,63,120,54,124,45,120,45,109" onclick="clickColor(&quot;#66FF33&quot;,-95,45)" onmouseover="mouseOverColor(&quot;#66FF33&quot;)" alt="#66FF33"><area style="cursor:pointer" shape="poly" coords="72,105,81,109,81,120,72,124,63,120,63,109" onclick="clickColor(&quot;#99FF66&quot;,-95,63)" onmouseover="mouseOverColor(&quot;#99FF66&quot;)" alt="#99FF66">
+                    <area style="cursor:pointer" shape="poly" coords="90,105,99,109,99,120,90,124,81,120,81,109" onclick="clickColor(&quot;#CCFF99&quot;,-95,81)" onmouseover="mouseOverColor(&quot;#CCFF99&quot;)" alt="#CCFF99"><area style="cursor:pointer" shape="poly" coords="108,105,117,109,117,120,108,124,99,120,99,109" onclick="clickColor(&quot;#FFFFCC&quot;,-95,99)" onmouseover="mouseOverColor(&quot;#FFFFCC&quot;)" alt="#FFFFCC"><area style="cursor:pointer" shape="poly" coords="126,105,135,109,135,120,126,124,117,120,117,109" onclick="clickColor(&quot;#FFCCCC&quot;,-95,117)" onmouseover="mouseOverColor(&quot;#FFCCCC&quot;)" alt="#FFCCCC"><area style="cursor:pointer" shape="poly" coords="144,105,153,109,153,120,144,124,135,120,135,109" onclick="clickColor(&quot;#FF99CC&quot;,-95,135)" onmouseover="mouseOverColor(&quot;#FF99CC&quot;)" alt="#FF99CC">
+                    <area style="cursor:pointer" shape="poly" coords="162,105,171,109,171,120,162,124,153,120,153,109" onclick="clickColor(&quot;#FF66CC&quot;,-95,153)" onmouseover="mouseOverColor(&quot;#FF66CC&quot;)" alt="#FF66CC"><area style="cursor:pointer" shape="poly" coords="180,105,189,109,189,120,180,124,171,120,171,109" onclick="clickColor(&quot;#FF33CC&quot;,-95,171)" onmouseover="mouseOverColor(&quot;#FF33CC&quot;)" alt="#FF33CC"><area style="cursor:pointer" shape="poly" coords="198,105,207,109,207,120,198,124,189,120,189,109" onclick="clickColor(&quot;#CC0099&quot;,-95,189)" onmouseover="mouseOverColor(&quot;#CC0099&quot;)" alt="#CC0099">
+                    <area style="cursor:pointer" shape="poly" coords="216,105,225,109,225,120,216,124,207,120,207,109" onclick="clickColor(&quot;#993399&quot;,-95,207)" onmouseover="mouseOverColor(&quot;#993399&quot;)" alt="#993399"><area style="cursor:pointer" shape="poly" coords="27,120,36,124,36,135,27,139,18,135,18,124" onclick="clickColor(&quot;#333300&quot;,-80,18)" onmouseover="mouseOverColor(&quot;#333300&quot;)" alt="#333300"><area style="cursor:pointer" shape="poly" coords="45,120,54,124,54,135,45,139,36,135,36,124" onclick="clickColor(&quot;#669900&quot;,-80,36)" onmouseover="mouseOverColor(&quot;#669900&quot;)" alt="#669900"><area style="cursor:pointer" shape="poly" coords="63,120,72,124,72,135,63,139,54,135,54,124" onclick="clickColor(&quot;#99FF33&quot;,-80,54)" onmouseover="mouseOverColor(&quot;#99FF33&quot;)" alt="#99FF33"><area style="cursor:pointer" shape="poly" coords="81,120,90,124,90,135,81,139,72,135,72,124" onclick="clickColor(&quot;#CCFF66&quot;,-80,72)" onmouseover="mouseOverColor(&quot;#CCFF66&quot;)" alt="#CCFF66"><area style="cursor:pointer" shape="poly" coords="99,120,108,124,108,135,99,139,90,135,90,124" onclick="clickColor(&quot;#FFFF99&quot;,-80,90)" onmouseover="mouseOverColor(&quot;#FFFF99&quot;)" alt="#FFFF99"><area style="cursor:pointer" shape="poly" coords="117,120,126,124,126,135,117,139,108,135,108,124" onclick="clickColor(&quot;#FFCC99&quot;,-80,108)" onmouseover="mouseOverColor(&quot;#FFCC99&quot;)" alt="#FFCC99"><area style="cursor:pointer" shape="poly" coords="135,120,144,124,144,135,135,139,126,135,126,124" onclick="clickColor(&quot;#FF9999&quot;,-80,126)" onmouseover="mouseOverColor(&quot;#FF9999&quot;)" alt="#FF9999"><area style="cursor:pointer" shape="poly" coords="153,120,162,124,162,135,153,139,144,135,144,124" onclick="clickColor(&quot;#FF6699&quot;,-80,144)" onmouseover="mouseOverColor(&quot;#FF6699&quot;)" alt="#FF6699"><area style="cursor:pointer" shape="poly" coords="171,120,180,124,180,135,171,139,162,135,162,124" onclick="clickColor(&quot;#FF3399&quot;,-80,162)" onmouseover="mouseOverColor(&quot;#FF3399&quot;)" alt="#FF3399"><area style="cursor:pointer" shape="poly" coords="189,120,198,124,198,135,189,139,180,135,180,124" onclick="clickColor(&quot;#CC3399&quot;,-80,180)" onmouseover="mouseOverColor(&quot;#CC3399&quot;)" alt="#CC3399"><area style="cursor:pointer" shape="poly" coords="207,120,216,124,216,135,207,139,198,135,198,124" onclick="clickColor(&quot;#990099&quot;,-80,198)" onmouseover="mouseOverColor(&quot;#990099&quot;)" alt="#990099"><area style="cursor:pointer" shape="poly" coords="36,135,45,139,45,150,36,154,27,150,27,139" onclick="clickColor(&quot;#666633&quot;,-65,27)" onmouseover="mouseOverColor(&quot;#666633&quot;)" alt="#666633"><area style="cursor:pointer" shape="poly" coords="54,135,63,139,63,150,54,154,45,150,45,139" onclick="clickColor(&quot;#99CC00&quot;,-65,45)" onmouseover="mouseOverColor(&quot;#99CC00&quot;)" alt="#99CC00"><area style="cursor:pointer" shape="poly" coords="72,135,81,139,81,150,72,154,63,150,63,139" onclick="clickColor(&quot;#CCFF33&quot;,-65,63)" onmouseover="mouseOverColor(&quot;#CCFF33&quot;)" alt="#CCFF33"><area style="cursor:pointer" shape="poly" coords="90,135,99,139,99,150,90,154,81,150,81,139" onclick="clickColor(&quot;#FFFF66&quot;,-65,81)" onmouseover="mouseOverColor(&quot;#FFFF66&quot;)" alt="#FFFF66"><area style="cursor:pointer" shape="poly" coords="108,135,117,139,117,150,108,154,99,150,99,139" onclick="clickColor(&quot;#FFCC66&quot;,-65,99)" onmouseover="mouseOverColor(&quot;#FFCC66&quot;)" alt="#FFCC66"><area style="cursor:pointer" shape="poly" coords="126,135,135,139,135,150,126,154,117,150,117,139" onclick="clickColor(&quot;#FF9966&quot;,-65,117)" onmouseover="mouseOverColor(&quot;#FF9966&quot;)" alt="#FF9966"><area style="cursor:pointer" shape="poly" coords="144,135,153,139,153,150,144,154,135,150,135,139" onclick="clickColor(&quot;#FF6666&quot;,-65,135)" onmouseover="mouseOverColor(&quot;#FF6666&quot;)" alt="#FF6666"><area style="cursor:pointer" shape="poly" coords="162,135,171,139,171,150,162,154,153,150,153,139" onclick="clickColor(&quot;#FF0066&quot;,-65,153)" onmouseover="mouseOverColor(&quot;#FF0066&quot;)" alt="#FF0066">
+                    <area style="cursor:pointer" shape="poly" coords="180,135,189,139,189,150,180,154,171,150,171,139" onclick="clickColor(&quot;#CC6699&quot;,-65,171)" onmouseover="mouseOverColor(&quot;#CC6699&quot;)" alt="#CC6699"><area style="cursor:pointer" shape="poly" coords="198,135,207,139,207,150,198,154,189,150,189,139" onclick="clickColor(&quot;#993366&quot;,-65,189)" onmouseover="mouseOverColor(&quot;#993366&quot;)" alt="#993366">
+                    <area style="cursor:pointer" shape="poly" coords="45,150,54,154,54,165,45,169,36,165,36,154" onclick="clickColor(&quot;#999966&quot;,-50,36)" onmouseover="mouseOverColor(&quot;#999966&quot;)" alt="#999966"><area style="cursor:pointer" shape="poly" coords="63,150,72,154,72,165,63,169,54,165,54,154" onclick="clickColor(&quot;#CCCC00&quot;,-50,54)" onmouseover="mouseOverColor(&quot;#CCCC00&quot;)" alt="#CCCC00">
+                    <area style="cursor:pointer" shape="poly" coords="81,150,90,154,90,165,81,169,72,165,72,154" onclick="clickColor(&quot;#FFFF00&quot;,-50,72)" onmouseover="mouseOverColor(&quot;#FFFF00&quot;)" alt="#FFFF00">
+                    <area style="cursor:pointer" shape="poly" coords="99,150,108,154,108,165,99,169,90,165,90,154" onclick="clickColor(&quot;#FFCC00&quot;,-50,90)" onmouseover="mouseOverColor(&quot;#FFCC00&quot;)" alt="#FFCC00"><area style="cursor:pointer" shape="poly" coords="117,150,126,154,126,165,117,169,108,165,108,154" onclick="clickColor(&quot;#FF9933&quot;,-50,108)" onmouseover="mouseOverColor(&quot;#FF9933&quot;)" alt="#FF9933"><area style="cursor:pointer" shape="poly" coords="135,150,144,154,144,165,135,169,126,165,126,154" onclick="clickColor(&quot;#FF6600&quot;,-50,126)" onmouseover="mouseOverColor(&quot;#FF6600&quot;)" alt="#FF6600">
+                    <area style="cursor:pointer" shape="poly" coords="153,150,162,154,162,165,153,169,144,165,144,154" onclick="clickColor(&quot;#FF5050&quot;,-50,144)" onmouseover="mouseOverColor(&quot;#FF5050&quot;)" alt="#FF5050"><area style="cursor:pointer" shape="poly" coords="171,150,180,154,180,165,171,169,162,165,162,154" onclick="clickColor(&quot;#CC0066&quot;,-50,162)" onmouseover="mouseOverColor(&quot;#CC0066&quot;)" alt="#CC0066"><area style="cursor:pointer" shape="poly" coords="189,150,198,154,198,165,189,169,180,165,180,154" onclick="clickColor(&quot;#660033&quot;,-50,180)" onmouseover="mouseOverColor(&quot;#660033&quot;)" alt="#660033"><area style="cursor:pointer" shape="poly" coords="54,165,63,169,63,180,54,184,45,180,45,169" onclick="clickColor(&quot;#996633&quot;,-35,45)" onmouseover="mouseOverColor(&quot;#996633&quot;)" alt="#996633"><area style="cursor:pointer" shape="poly" coords="72,165,81,169,81,180,72,184,63,180,63,169" onclick="clickColor(&quot;#CC9900&quot;,-35,63)" onmouseover="mouseOverColor(&quot;#CC9900&quot;)" alt="#CC9900"><area style="cursor:pointer" shape="poly" coords="90,165,99,169,99,180,90,184,81,180,81,169" onclick="clickColor(&quot;#FF9900&quot;,-35,81)" onmouseover="mouseOverColor(&quot;#FF9900&quot;)" alt="#FF9900"><area style="cursor:pointer" shape="poly" coords="108,165,117,169,117,180,108,184,99,180,99,169" onclick="clickColor(&quot;#CC6600&quot;,-35,99)" onmouseover="mouseOverColor(&quot;#CC6600&quot;)" alt="#CC6600"><area style="cursor:pointer" shape="poly" coords="126,165,135,169,135,180,126,184,117,180,117,169" onclick="clickColor(&quot;#FF3300&quot;,-35,117)" onmouseover="mouseOverColor(&quot;#FF3300&quot;)" alt="#FF3300"><area style="cursor:pointer" shape="poly" coords="144,165,153,169,153,180,144,184,135,180,135,169" onclick="clickColor(&quot;#FF0000&quot;,-35,135)" onmouseover="mouseOverColor(&quot;#FF0000&quot;)" alt="#FF0000"><area style="cursor:pointer" shape="poly" coords="162,165,171,169,171,180,162,184,153,180,153,169" onclick="clickColor(&quot;#CC0000&quot;,-35,153)" onmouseover="mouseOverColor(&quot;#CC0000&quot;)" alt="#CC0000"><area style="cursor:pointer" shape="poly" coords="180,165,189,169,189,180,180,184,171,180,171,169" onclick="clickColor(&quot;#990033&quot;,-35,171)" onmouseover="mouseOverColor(&quot;#990033&quot;)" alt="#990033"><area style="cursor:pointer" shape="poly" coords="63,180,72,184,72,195,63,199,54,195,54,184" onclick="clickColor(&quot;#663300&quot;,-20,54)" onmouseover="mouseOverColor(&quot;#663300&quot;)" alt="#663300"><area style="cursor:pointer" shape="poly" coords="81,180,90,184,90,195,81,199,72,195,72,184" onclick="clickColor(&quot;#996600&quot;,-20,72)" onmouseover="mouseOverColor(&quot;#996600&quot;)" alt="#996600"><area style="cursor:pointer" shape="poly" coords="99,180,108,184,108,195,99,199,90,195,90,184" onclick="clickColor(&quot;#CC3300&quot;,-20,90)" onmouseover="mouseOverColor(&quot;#CC3300&quot;)" alt="#CC3300"><area style="cursor:pointer" shape="poly" coords="117,180,126,184,126,195,117,199,108,195,108,184" onclick="clickColor(&quot;#993300&quot;,-20,108)" onmouseover="mouseOverColor(&quot;#993300&quot;)" alt="#993300"><area style="cursor:pointer" shape="poly" coords="135,180,144,184,144,195,135,199,126,195,126,184" onclick="clickColor(&quot;#990000&quot;,-20,126)" onmouseover="mouseOverColor(&quot;#990000&quot;)" alt="#990000"><area style="cursor:pointer" shape="poly" coords="153,180,162,184,162,195,153,199,144,195,144,184" onclick="clickColor(&quot;#800000&quot;,-20,144)" onmouseover="mouseOverColor(&quot;#800000&quot;)" alt="#800000"><area style="cursor:pointer" shape="poly" coords="171,180,180,184,180,195,171,199,162,195,162,184" onclick="clickColor(&quot;#993333&quot;,-20,162)" onmouseover="mouseOverColor(&quot;#993333&quot;)" alt="#993333"></map>
+                    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+        <script>
+        var thistop = "-35";
+        var thisleft = "135";
+        </script>
+            <div id="selectedhexagon" style="visibility: visible; position: relative; width: 21px; height: 21px; background-image: url(&quot;./img_selectedcolor.gif&quot;); top: -95px; left: 117px;"></div>
+            <div id="divpreview" style="visibility: hidden; background-color: rgb(153, 102, 0);"></div>
+            <div id="html5DIV">
+                <h3>或使用 HTML5:</h3>
+                <input type="color" id="html5colorpicker" onchange="clickColor(0, -1, -1, 5)" value="#ff0000" style="width:85%;">
+            </div>
+            <br>
+            <br>
+            </div>
+        </td>
+        <td width="20%">
+            <div style="text-align: center">
+                <h3> 當前所選顏色：<canvas id="selectedColor" width="50" height="50"></canvas></h3>
+            </div >
+            <div id="selectedcolor" style="font-size: 18px !important;">
+            <br><br>
+            <span style="color: #000 !important;">黑色文本</span><br><br>
+            <span style="color: #000 !important;text-shadow: 1px 1px 0 #444;">陰影</span><br><br>
+            <span style="color: #fff !important;">白色文本</span><br><br>
+            <span style="color: #fff !important;text-shadow: 1px 1px 0 #444;">陰影</span>
+            </div>
+            <div id="colornamDIV" style="margin-top: 16px !important;"></div>
+            <div><b><span id="colorhexDIV"></span></b></div>
+            <div id="colorrgbDIV"></div>
+            <div id="colorhslDIV"></div>
+            <div id="colorhsvDIV"></div>
+        </td>
+        <td>
+            <div style="text-align: center">
+                <button class="connect">連接</button>
+                <input type="text" class="serviceAddress"  name="serviceAddress" value="emoji">
+                <button class="clean">清空</button>
+                <button class="random">隨機</button>
+                <button class="down">下載圖片</button>
+                <button class="send">發送圖片</button>
+            </div>
+            <div class="main" style="text-align: center">
+                <canvas id="mainCanvas" width="320" height="320"></canvas>
+            </div>
+        </td>
+        <td>
+            <div class="main" style="text-align: center">
+                <h3>選擇預設圖片 Emoji</h3>
+                <p id='out'>Selected [NULL]</p> <canvas id="emoji" width="16" height="16"></canvas>
+                <canvas id="emoji62" width="62" height="16"></canvas>
+                <img id='emojis' onclick='clickEmoji(event);' src="data:image/png;base64,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" >
+            </div>
+        </td>
+        </tr>
+
+        </table>
+    <script type="text/javascript" src="./download.js"></script>
+    <script src="./tinycolor.js"></script>
+<script>
+
+var colorhex = "FF0000";
+    function mouseOverColor(hex) {
+        document.getElementById("divpreview").style.visibility = "visible";
+        document.getElementById("divpreview").style.backgroundColor = hex;
+        document.body.style.cursor = "pointer";
+    }
+    function mouseOutMap() {
+        if (hh == 0) {
+            document.getElementById("divpreview").style.visibility = "hidden";
+        } else {
+            hh = 0;
+        }
+        document.getElementById("divpreview").style.backgroundColor = "#" + colorhex;
+        document.body.style.cursor = "";
+    }
+    var hh = 0;
+    function clickColor(hex, seltop, selleft, html5) {
+        var c;
+        if (html5 && html5 == 5)	{
+            c = document.getElementById("html5colorpicker").value;
+        } else {
+            if (hex == 0)	{
+                c = document.getElementById("entercolor").value;
+            } else {
+                c = hex;
+            }
+        }
+        colorhex = tinycolor(c).toHexString();
+        r = tinycolor(c).toRgb().r;
+        g = tinycolor(c).toRgb().g;
+        b = tinycolor(c).toRgb().b;
+        document.getElementById("colornamDIV").innerHTML = (tinycolor(colorhex).toName() || "");
+        document.getElementById("colorhexDIV").innerHTML = tinycolor(colorhex).toHexString();
+        document.getElementById("colorrgbDIV").innerHTML = tinycolor(colorhex).toRgbString();
+        document.getElementById("colorhslDIV").innerHTML = tinycolor(colorhex).toHslString();
+        document.getElementById("colorhsvDIV").innerHTML = tinycolor(colorhex).toHsvString();
+        if ((seltop+200)>-1 && selleft>-1) {
+            document.getElementById("selectedhexagon").style.top=seltop + "px";
+            document.getElementById("selectedhexagon").style.left=selleft + "px";
+            document.getElementById("selectedhexagon").style.visibility="visible";
+        } else {
+            document.getElementById("divpreview").style.backgroundColor = tinycolor(colorhex).toHexString();
+            document.getElementById("selectedhexagon").style.visibility = "hidden";
+        }
+        document.getElementById("selectedcolor").style.backgroundColor = tinycolor(colorhex).toHexString();
+        document.getElementById("html5colorpicker").value = tinycolor(colorhex).toHexString();
+        select_color = colorhex;
+        Sctx.fillStyle = select_color;
+        Sctx.fillRect(0,0,300,300);
+    }
+
+    function changeAll() {
+        var r = document.getElementById('valRed').innerHTML;
+        var g = document.getElementById('valGreen').innerHTML;
+        var b = document.getElementById('valBlue').innerHTML;
+        document.getElementById('change').style.backgroundColor = "rgb(" + r + "," + g + "," + b + ")";
+        document.getElementById('changetxt').innerHTML = "rgb(" + r + ", " + g + ", " + b + ")";
+        document.getElementById('changetxthex').innerHTML = tinycolor("rgb(" + r + "," + g + "," + b + ")").toHexString();
+    }
+
+    var select_color = "#000000";
+    const showColor = document.getElementById("selectedColor");
+    const Sctx = showColor.getContext( "2d" );
+
+    function run(canvas, obj) {
+        obj = obj || {}
+        this.canvas = canvas
+        this.cvs = canvas.getContext("2d")
+        this.bgColor = obj.bgColor || "#000000"
+        this.clickedColor = obj.clickedColor || "#000000"
+        this.boxSize = obj.boxSize || 20
+        this.bgWidthLength = 0
+        this.bgHeightLength = 0
+        this.clickedArr = []
+        this.start()
+        this.click()
+        return this
+    }
+
+    run.prototype.start = function(){
+        this.bgWidthLength = parseInt( this.canvas.width / this.boxSize )
+        this.bgHeightLength = parseInt( this.canvas.height / this.boxSize )
+        this.drawBg()
+    }
+
+    run.prototype.click = function(){
+        let move = this.mousemove.bind(this)
+        this.canvas.addEventListener("mousedown",function(e){
+            let o = this.computedXY(e.offsetX,e.offsetY)
+            this.toggleClick(o)
+            this.canvas.addEventListener("mousemove",move )
+        }.bind(this))
+        this.canvas.addEventListener("mouseup",function(e){
+            this.canvas.removeEventListener("mousemove",move )
+        }.bind(this))
+    }
+
+    run.prototype.mousemove = function(e){
+        let o = this.computedXY(e.offsetX,e.offsetY)
+        this.toggleClick(o,true)
+    }
+
+    run.prototype.computedXY = function(x,y){
+        for( let i=0;i<this.bgWidthLength;i++ ){
+            if( x > i*this.boxSize && x < (i+1)*this.boxSize ){
+                x = i
+                break;
+            }
+        }
+        for( let i=0;i<this.bgHeightLength;i++ ){
+            if( y > i*this.boxSize && y < (i+1)*this.boxSize ){
+                y = i
+                break;
+            }
+        }
+        return {x,y}
+    }
+
+    run.prototype.toggleClick = function(o,draw){
+        let has = {}
+            has.is = true
+        this.clickedArr.forEach(function(item,index){
+
+            if( item.x === o.x && item.y === o.y ){
+                has.is = false
+                has.index = index
+            }
+        })
+        if(has.is){
+            this.clickedArr.push(o)
+            this.drawBgBox(o.x*this.boxSize,o.y*this.boxSize,true)
+        }
+        if(!has.is && !draw){
+            this.clickedArr.splice(has.index,1)
+            this.drawBgBox( o.x*this.boxSize,o.y*this.boxSize )
+        }
+    }
+
+    run.prototype.Random = function(length){
+        for(let i=0;i<length;i++ ){
+            let o = {}
+                o.x = parseInt( Math.random() * this.bgWidthLength )
+                o.y = parseInt( Math.random() * this.bgHeightLength )
+            this.toggleClick(o)
+        }
+    }
+
+    run.prototype.clean = function(){
+        this.clickedArr.forEach(function(o,index){
+            this.drawBgBox( o.x*this.boxSize , o.y*this.boxSize )
+        }.bind(this))
+        this.clickedArr = []
+    }
+
+    run.prototype.show = function(img){
+        this.clickedArr = []
+        for (var y = 0; y < 16; y++)
+        {
+            for(var x = 0; x < 16; x++){
+                var imageData = img.getImageData(x, y, 1, 1).data;
+                var rgb_str = 'rgb('+imageData[0]+','+imageData[1]+','+imageData[2]+')';
+                this.drawBgBoxColor( x*this.boxSize , y*this.boxSize , setRgbTo16(rgb_str) );
+                var o = {}
+                o.x = x
+                o.y = y
+                this.clickedArr.push(o);
+            }
+        }
+    }
+
+    run.prototype.drawBg = function(){
+        for(let i=0;i<this.bgHeightLength;i++){
+            for(let j=0;j<this.bgWidthLength;j++ ){
+                this.drawBgBox(j*this.boxSize,i*this.boxSize)
+            }
+        }
+    }
+
+    run.prototype.drawBgBoxColor = function(x,y,color) {
+        this.cvs.beginPath()
+        this.cvs.fillStyle = color;
+        this.cvs.fillRect(x+1, y+1, this.boxSize-1,this.boxSize-1 );
+        this.cvs.fill()
+        this.cvs.stroke()
+        this.cvs.closePath()
+    }
+
+    run.prototype.drawBgBox = function(x,y,z) {
+        this.cvs.beginPath()
+        this.cvs.fillStyle = z ? select_color : this.bgColor;
+        this.cvs.fillRect(x+1, y+1, this.boxSize-1,this.boxSize-1 );
+        this.cvs.fill()
+        this.cvs.stroke()
+        this.cvs.closePath()
+    }
+    let serviceAddress = "emoji";
+    let canvas = document.getElementById("mainCanvas")
+    let cartoonImg = document.getElementById("cartoonCanvas")
+    let cvs = canvas.getContext("2d")
+    let Pcvs = canvas.getContext("2d")
+    let a = new run(canvas)
+    let connect = document.querySelector(".connect");
+    let clean = document.querySelector(".clean");
+    let random = document.querySelector(".random");
+    let down = document.querySelector(".down");
+    let send = document.querySelector(".send");
+    function nw() { return new WebSocket('ws://' + serviceAddress + ':81/', ['arduino']); }
+    let ws = nw();
+    connect.onclick = function(){
+        serviceAddress = $('.serviceAddress').val();
+        //alert("连接地址："+serviceAddress);
+        ws = nw();
+        if(ws.readyState === ws.CLOSED){
+            alert("连接失败");
+        }else if(ws.readyState === ws.OPEN){
+            alert("连接成功");
+        }else if(ws.readyState === ws.CONNECTING){
+            alert("连接中");
+        }
+    };
+        clean.onclick = function(){
+            a.clean()
+        };
+        random.onclick = function(){
+            a.Random(100)
+        };
+        down.onclick = function(){
+            download(canvas.toDataURL(),'test.png','image/png')
+        };
+        
+        send.onclick = function(){
+            var canvasA = document.getElementById("mainCanvas")
+            var imgs = canvasA.getContext("2d")
+            imgs.drawImage(canvasA, 0, 0, 320, 320);
+            var d = imgs.getImageData(0, 0, 320, 320).data;
+            var t = 'o';
+            var text = 'o';
+            for (var i = 0; i < 16; i++)
+            {
+                for(var j = 0; j < 16; j++){
+                    var imageData = imgs.getImageData(j*20+5, i*20+5, 1, 1).data;
+                    t += cc(imageData[0]);
+                    t += cc(imageData[1]);
+                    t += cc(imageData[2]);
+                    text += imageData[0];
+                    text += imageData[1];
+                    text += imageData[2];
+                }
+            }
+            ws.send(t, { binary: true });
+            console.log("发送了"+text);
+        };
+    function cc(c) { return String.fromCharCode(c/2); }
+    
+    function clickEmoji(e) {
+        var xo = 0; var yo = 0; var xs = 16; var ys = 16; var x = e.offsetX; var y = e.offsetY;
+        console.log("坐标x:"+x+", y:"+y);
+        var c = Math.trunc((x - xo) / xs);//x轴序号
+        var r = Math.trunc((y - yo) / ys);//y轴序号
+        //console.log("行:"+c+", 列:"+r);
+        document.getElementById('out').innerText = 'Selected [' + c + ', ' + r + ']';
+        var img = document.getElementById('emojis');
+        var ce = document.getElementById('emoji');
+        var ctx = ce.getContext('2d');
+        ctx.drawImage(img, (xo + (xs * c)),(yo + (ys * r)), 16,16, 0,0, 16,16);
+        //Pcvs.drawImage(img, (xo + (xs * c)),(yo + (ys * r)), 16,16, 0,0, 800,800);
+        a.show(ctx);
+        //var d = ctx.getImageData(0, 0, 16, 16).data;
+        var t = '';
+        var text = '';
+        for (var i = 0; i < 24; i++)
+        {
+            for(var j = 0; j < 24; j++){
+                var imageData = ctx.getImageData(j, i, 1, 1).data;
+                t += cc(imageData[0]);
+                t += cc(imageData[1]);
+                t += cc(imageData[2]);
+                text += imageData[0]+',';
+                text += imageData[1]+',';
+                text += imageData[2]+',';
+            }
+        }
+        ws.send(t, { binary: true });
+        console.log("发送了:"+text);
+        
+        if(r>14){
+            var ce62 = document.getElementById('emoji62');
+            var ctx62 = ce62.getContext('2d');
+            text = '';
+            if(c>4){
+                ctx62.drawImage(img, 62,240, 62,16, 0,0, 62,16);
+                console.log("zouzou");
+            }else{
+                ctx62.drawImage(img, (xo + (xs * 0)),(yo + (ys * 15)), 62,16, 0,0, 62,16);
+            }
+            for (var i = 0; i < 16; i++)
+            {
+                for(var j = 0; j < 62; j++){
+                    var imageData = ctx62.getImageData(j, i, 1, 1).data;
+                    text += imageData[0]+',';
+                    text += imageData[1]+',';
+                    text += imageData[2]+',';
+                }
+            }
+            console.log("小智:"+text);
+        }
+    };
+    function setRgbTo16(str){
+        let reg = /^(rgb|RGB)/;
+        if(!reg.test(str)){return;}
+        var arr = str.slice(4, str.length-1).split(",")
+        let color = '#';
+        for(var i=0;i<arr.length;i++){
+            var t = Number(arr[i]).toString(16)
+            if(t == "0"){   //如果为“0”的话，需要补0操作,否则只有5位数
+                t =  t + "0"
+            }
+            color += t;
+        }
+        return color;
+    }
+    //setRgbTo16('rgb(255,0,255)');   // #FF00FF
+
+</script>
+</body>
+</html>

@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello XMatrix</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="js/jquery.min.js"></script>
+		<script src="js/joy.js"></script>
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<!--<link rel="stylesheet" type="text/css" href="../css/app.css" />-->
+		<style>
+			header {
+				border-radius: 50px;
+				width: 40%;
+				margin-right: 30%;
+				margin-left: 30%;
+				margin-top: 5px;
+			}
+			header span {
+				float: right;
+			}
+			.mui-card .mui-control-content {
+				padding: 10px;
+			}
+			
+			.mui-control-content {
+				height: 950px;
+			}
+			
+			.field-contain label{
+			    width: auto;
+			    padding-right: 0;
+			}
+					
+			.field-contain input[type='text']{
+			    width: 40px;
+			    height: 30px;
+			    padding: 5px 0;
+			    float: none;
+			    text-align: center;
+			}
+			h4,p {
+				text-align: center;
+			}
+			.qrcode {
+				/*position: absolute;*/
+				top: 50px;
+				/*left: 50%;*/
+				width: 100%;
+				/*-webkit-transform: translate(-50%, 0);
+				transform: translate(-50%, 0);*/
+				text-align: center;
+			}
+			.qrcode img {
+				margin: 0 auto;
+			}
+		
+		
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<!-- <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a> -->
+			<h1 class="mui-title">XMatrix</h1>
+			<span class="mui-icon mui-icon-loop" onclick="pulldownRefresh()"></span>
+		</header>
+		
+		<div class="mui-content">
+			<div style="padding: 10px 10px;">
+				<div id="segmentedControl" class="mui-segmented-control">
+					<a class="mui-control-item mui-active" href="#item1">主頁</a>
+					<a class="mui-control-item" href="#item2">模式選擇</a>
+					<a class="mui-control-item" href="#item3">時鐘配置</a>
+					<a class="mui-control-item" href="#item4">繪圖</a>
+					<a class="mui-control-item" href="#item5">GIF動畫</a>
+					<a class="mui-control-item" href="#item6">遊戲模式</a>
+					<a class="mui-control-item" href="#item7">系統設定</a>
+				</div>
+			</div>
+			<div  id="refreshContainer">
+				
+				<div id="item1" class="mui-control-content mui-active">
+					<div id="scroll" class="mui-scroll-wrapper">
+
+						<br>
+						<div class="mui-scroll">
+							<div class="mui-media-object" style='margin: 0 auto; text-align: center;'>
+								<img class="mui-media-object" id="emojis" onclick='clickEmoji(event);' style="height: 244px;width: 262px;margin: 0 auto; text-align: center;" src="data:image/png;base64,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">
+							</div>
+							<h1 id='out' style='margin: 0 auto; text-align: center;'></h1>
+							<div style='margin: 0 auto; text-align: center;'>
+								<canvas id='emoji' width='16' height='16'></canvas>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				
+				
+				
+				<div id="item2" class="mui-control-content">
+					<h5 class="mui-content-padded">模式選擇</h5>
+					<div class="mui-card">
+						<form class="mui-input-group">
+							<div class="mui-input-row mui-radio">
+								<label>(1)時鐘</label>
+								<input name="radio-mode" onclick="changeMode(1)" type="radio" checked>
+							</div>
+							<div class="mui-input-row mui-radio">
+								<label>(2)時鐘+日期</label>
+								<input name="radio-mode" onclick="changeMode(2)" type="radio">
+							</div>
+							<div class="mui-input-row mui-radio">
+								<label>(3)天氣 + 時鐘 + 溫濕度</label>
+								<input name="radio-mode" onclick="changeMode(3)" type="radio">
+							</div>
+							<div class="mui-input-row mui-radio">
+								<label>(4)繪畫模式</label>
+								<input name="radio-mode" onclick="changeMode(4)" type="radio" >
+							</div>							
+							<div class="mui-input-row mui-radio">
+								<label>(5) GIF動畫</label>
+								<input name="radio-mode" onclick="changeMode(5)" type="radio" >
+							</div>
+
+
+							
+						</form>
+					</div>
+					<div class="mui-button-row">
+						<button type="button" class="mui-btn mui-btn-purple" onclick="Clear()">清除畫面</button>
+					
+						<button type="button" class="mui-btn mui-btn-success" onclick="configSave()">保存設定</button>
+					</div>
+					<br>
+					<h4>時鐘風格</h4>
+					<div class="mui-card">
+						<form class="mui-input-group">
+							<div class="mui-input-row mui-radio">
+								<label>時:分</label>
+								<input name="radio-clock" onclick="clockMode(1)" type="radio">
+							</div>
+							<div class="mui-input-row mui-radio">
+								<label>(漸變顏色) + 時:分</label>
+								<input name="radio-clock" onclick="clockMode(2)" type="radio">
+							</div>
+							<div class="mui-input-row mui-radio">
+								<label>時:分:秒</label>
+								<input name="radio-clock" onclick="clockMode(3)" type="radio">
+							</div>
+							<div class="mui-input-row mui-radio">
+								<label>圖片emoji + 時:分</label>
+								<input name="radio-clock" onclick="clockMode(4)" type="radio">
+							</div>
+							<div class="mui-input-row mui-radio">
+								<label>GIF動圖 + 時:分</label>
+								<input name="radio-clock" onclick="clockMode(5)" type="radio">
+							</div>
+
+							<div class="mui-input-row mui-radio">
+								<label>隨機模式(每間隔30分鐘變換)</label>
+								<input name="radio-clock" onclick="clockMode(6)" type="radio">
+							</div>		
+											
+						</form>
+					</div>
+					<h4>日期風格</h4>
+					<div class="mui-card">
+						<form class="mui-input-group">
+							<div class="mui-input-row mui-radio">
+								<label>MM/DD</label>
+								<input name="radio-date" onclick="DateModel(1)" type="radio">
+							</div>
+							<div class="mui-input-row mui-radio">
+								<label>emoji MM-DD</label>
+								<input name="radio-date" onclick="DateModel(2)" type="radio">
+							</div>
+						</form>
+					</div>
+
+				</div>
+			
+			
+				
+				<div id="item3" class="mui-control-content">
+					<div class="mui-content-padded">  
+					<h4 style='margin-top:15px;'>亮度</h4>
+					<div class="mui-input-row mui-input-range field-contain">
+					    <div style="float:left">
+					        <label >亮度：</label>
+					        <input type="text" id='bt_value' value='125'>
+					    </div>
+					    <div style="margin-left:121px;">
+					        <input type="range" id='bt' value="125" oninput='sendBrightness()' min="0" max="255" />
+					    </div>
+					</div>
+					<h4 style='margin-top:15px;'>顏色</h4>
+					<div class="mui-input-row mui-input-range field-contain">
+					    <div style="float:left">
+					        <label >全局：</label>
+					        <input type="text" id='huea_value' name='hue_value' value='180'>
+					    </div>
+					    <div style="margin-left:121px;">
+					        <input type="range" id='huea' name='hue_value' value="180" oninput='sendHue("a")' min="0" max="360" />
+					    </div>
+					</div>
+					<div class="mui-input-row mui-input-range field-contain">
+					    <div style="float:left">
+					        <label >冒號：</label>
+					        <input type="text" id='hued_value' name='hue_value' value='180'>
+						</div>
+						<div style="margin-left:121px;">
+							<input type="range" id='hued' name='hue_value' value="180" oninput='sendHue("d")' min="0" max="360" />
+						</div>
+					</div>
+					<div class="mui-input-row mui-input-range field-contain">
+						 <div style="float:left">
+							 <label >小時：</label>
+							 <input type="text" id='hueh_value' name='hue_value' value='180'>
+						</div>
+						<div style="margin-left:121px;">
+							<input type="range" id='hueh' name='hue_value' value="180" oninput='sendHue("h")' min="0" max="360" />
+						</div>
+					</div>
+					<div class="mui-input-row mui-input-range field-contain">
+						 <div style="float:left">
+							 <label >分鐘：</label>
+							 <input type="text" id='huem_value' name='hue_value' value='180'>
+						</div>
+						<div style="margin-left:121px;">
+							<input type="range" id='huem' name='hue_value' value="180" oninput='sendHue("m")' min="0" max="360" />
+						</div>
+					</div>
+					<div class="mui-input-row mui-input-range field-contain">
+						 <div style="float:left">
+							 <label >秒鐘：</label>
+							 <input type="text" id='hues_value' name='hue_value' value='180'>
+						</div>
+						<div style="margin-left:121px;">
+							<input type="range" id='hues' name='hue_value' value="180" oninput='sendHue("s")' min="0" max="360" />
+						</div>
+					</div>
+					<div class="mui-input-row mui-input-range field-contain">
+						 <div style="float:left">
+							 <label >星期：</label>
+							 <input type="text" id='huew_value' name='hue_value' value='180'>
+						</div>
+						<div style="margin-left:121px;">
+							<input type="range" id='huew' name='hue_value' value="180" oninput='sendHue("w")' min="0" max="360" />
+						</div>
+					</div>
+					<div class="mui-input-row mui-input-range field-contain">
+						 <div style="float:left">
+							 <label >GIF次數：</label>
+							 <input type="text" id='hueg_value'  value='3'>
+						</div>
+						<div style="margin-left:121px;">
+							<input type="range" id='hueg'  value="3" oninput='sendHue("g")' min="1" max="10" />
+						</div>
+					</div>
+
+
+					<div class="mui-input-row mui-input-range field-contain">
+						 <div style="float:left">
+							 <label >GIF數量：</label>
+							 <input type="text" id='huen_value'  value='40'>
+						</div>
+						<div style="margin-left:121px;">
+							<input type="range" id='huen'  value="40" oninput='sendHue("n")' min="1" max="99" />
+						</div>
+					</div>
+					
+					</div>
+					<div class="mui-button-row">
+						<button type="button" class="mui-btn mui-btn-success" onclick="configSave()">保存設定</button>
+					</div>
+
+					<br><br><br>
+					
+					  
+					
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell ">
+						  
+						    <h4>漸變顏色設定</h4>
+						    <h5>選擇顏色1</h5>
+                    <div class='main' style='text-align: center'>
+                    <input type='color' id='html5colorpickerA'  value='#ffff00' style='width:50%;'>
+                    </div>
+                    
+						    <h5>選擇顏色2</h5>
+                    <div class='main' style='text-align: center'>
+                    <input type='color' id='html5colorpickerB'  value='#ff0051' style='width:50%;'>
+                    </div> 
+
+                <div class="mui-button-row">
+                <label>
+                        <button class='mui-btn mui-btn-primary' onclick='sendcolor()'>設定漸變顏色</button>
+                </label>
+                
+                <label>
+                        <button class='mui-btn mui-btn-primary' onclick='sendrandomcolor()'>隨機顏色</button>
+                </label>
+                                
+                </div>
+
+						</li>
+					  </ul> 
+         </div>
+					
+	
+					
+				    <div id="item4" class="mui-control-content">
+				  
+				        <div id='html5DIV'>
+                    <h4>選擇顏色</h4>
+                    <div class='main' style='text-align: center'>
+                    <input type='color' id='html5colorpicker' onchange='clickColor(0, -1, -1, 5)' value='#ff0000' style='width:65%;'>
+                </div>
+                </div>
+                
+                
+                <div style='text-align: center'>
+                    <h4> 當前顏色：<canvas id='selectedColor' width='25' height='25'></canvas></h4>
+                </div >
+                
+                <div class='main' style='text-align: center'>
+                    <canvas id='mainCanvas' width='480' height='480'></canvas>
+                </div>
+                
+                <div class="mui-button-row">
+                    <label>
+                        <button class='mui-btn mui-btn-success' onclick='clearDraw()'>清空</button>
+                    </label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <label>
+                        <button class='mui-btn mui-btn-primary' onclick='send()'>發送</button>
+                    </label>
+                </div>
+						</div>					
+				
+				
+
+
+
+				<div id="item5" class="mui-control-content">
+					  
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell ">
+							<h4>播放GIF動畫</h4>
+							  <div class="mui-collapse-content">
+								  <input type="text"     class="mui-input-clear" id="GIFname_value" placeholder="請輸入GIF檔名" value='main.gif'>
+					
+						     <div class="mui-button-row">
+								  <button type="button" class="mui-btn mui-btn-primary" onclick="playGIF()">單次播放</button>
+
+								 </div>
+								
+						</div>
+						</li>
+					 </ul>
+
+					<h5 class="mui-content-padded">固定播放</h5>
+					  <div class="mui-card">
+						   <form class="mui-input-group">
+							  <div class="mui-input-row mui-radio">
+							  	<label><p>設定特定檔名  重複播放單一個動畫  </p></label>
+								  <input name="radio-mode" onclick="timeGIFname()" type="radio">
+							   </div>
+						 </form>
+					  </div>					 
+					 
+					 
+					 
+					<h5 class="mui-content-padded">隨機播放</h5>
+					  <div class="mui-card">
+						   <form class="mui-input-group">
+							  <div class="mui-input-row mui-radio">
+							  	<label><p>將GIF動畫檔 命名為1.gif - 40.gif   上傳到 /gifs資料夾 (GIF數量可在"時鐘配置"調整) </p></label>
+								  <input name="radio-mode" onclick="randomGIF()" type="radio">
+							   </div>
+						 </form>
+					  </div>	 
+					 
+					 
+					</div>
+					
+					
+
+
+
+		<div id="item6" class="mui-control-content">
+		
+					  <p>遊戲模式</p>
+					
+			   <h5 class="mui-content-padded">俄羅斯方塊-模式選擇</h5>
+					  <div class="mui-card">
+						   <form class="mui-input-group">
+							  <div class="mui-input-row mui-radio">
+							  	<label>俄羅斯方塊</label>
+								  <input name="radio-mode" onclick="changeMode(6)" type="radio">
+							   </div>
+							   
+							<div class="mui-input-row mui-radio">
+								<label>[超大]俄羅斯方塊</label>
+								<input name="radio-mode" onclick="changeMode(7)" type="radio">
+	            </div>	
+						 </form>
+					  </div>	
+					
+				   <h5 class="mui-content-padded">俄羅斯方塊-模式選擇</h5>
+					  <div class="mui-card">
+						   <form class="mui-input-group">
+							  <div class="mui-input-row mui-radio">
+							  	<label>(預設)自由模式  <p>自由控制方塊下降速度，不保留最高得分</p></label>
+								  <input name="radio-mode" onclick="T_PlayMode(0)" type="radio">
+							   </div>
+							   
+							<div class="mui-input-row mui-radio">
+								<label>挑戰模式  <p>速度隨得分變快，保留最高得分</p></label>
+								<input name="radio-mode" onclick="T_PlayMode(1)" type="radio">
+	            </div>	
+						 </form>
+					  </div>					
+					
+					
+					
+					
+					
+					<h5 class="mui-content-padded">貪食蛇</h5>
+					  <div class="mui-card">
+						   <form class="mui-input-group">
+							  <div class="mui-input-row mui-radio">
+							  	<label>貪食蛇</label>
+								  <input name="radio-mode" onclick="changeMode(8)" type="radio">
+							   </div>
+						 </form>
+					  </div>	
+					
+					
+				<div class="mui-content-padded">
+          <br>
+	         
+	         <div class="container" style="display:flex;" >
+           <div style="width:25%;">
+						<button type="button" style="width:100px;height:100px;" class="mui-btn mui-btn-success" onclick="BTNleft()">左</button>
+            </div>
+            
+            <div style="width:25%;">
+            <button type="button"  style="width:100px;height:100px;" class="mui-btn mui-btn-success" onclick="BTNright()">右</button>
+					  </div>
+
+            <div style="width:25%;">
+            </div>
+
+            <div style="width:25%;">
+						<button type="button" style="width:100px;height:100px;" class="mui-btn mui-btn-purple" onclick="BTNup()">旋轉</button>         
+            </div>
+           </div> 
+            
+            
+					<div class="mui-button-row">
+						   <br>
+						<button type="button" style="width:100px;height:100px; margin-right:70%; margin-top:5px;" class="mui-btn mui-btn-primary" onclick="BTNdown()">下</button>	
+						</div>
+					</div>		
+					  <br>   
+			             
+					<div class="mui-button-row">
+						<button type="button" class="mui-btn mui-btn-success" onclick="BTNstart()"> &nbsp; 開始 &nbsp; </button>
+					  <button type="button" class="mui-btn mui-btn-success" onclick="BTNpause()"> &nbsp; 暫停 &nbsp; </button>
+						</div>
+				
+				
+			
+
+
+	      <div class="mui-content-padded">
+       
+          <div id="joyDiv" style="width:100px;height:100px;"></div>
+       
+        </div>
+   	</div>
+				
+				
+				
+				
+				
+		
+
+				
+
+				
+					<div id="item7" class="mui-control-content">
+
+       <h4>WIFI設定</h4>
+				
+					<ul class="mui-table-view">
+					 <li class="mui-table-view-cell ">	
+
+					   <div class="mui-collapse-content">
+					        <label >SSID：</label>
+					         <input type="text" id='input_SSID' class="mui-input-clear" placeholder="請輸入 SSID">
+					   </div>
+
+					   <div class="mui-collapse-content">
+					        <label >密碼：</label>
+					         <input type="text" id='input_PASSWORD' class="mui-input-clear" placeholder="請輸入 WIFI密碼">
+					   </div>
+					
+					   <div class="mui-button-row">
+						    <button type="button" class="mui-btn mui-btn-success" onclick="WIFISend()">設定</button>
+					   </div>
+						</li>
+					 </ul> 
+
+          <br>
+		      <h4>發送命令</h4>
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell mui-collapse">
+							<a class="mui-navigate-right" href="#">發送命令</a>
+							<div class="mui-collapse-content">
+								<input type="text" class="mui-input-clear" id="customCommand" placeholder="請輸入需要發送的命令">
+								<div class="mui-button-row">
+									<button type="button" class="mui-btn mui-btn-primary" onclick="sendCustomCommand()">發送</button>
+								</div>
+							</div>
+						</li>
+						
+						<li class="mui-table-view-cell mui-collapse">
+							<a class="mui-navigate-right" href="#">導入設定</a>
+							<div class="mui-collapse-content">
+								<textarea id="jsonCommand" class="mui-input-clear" rows="5" placeholder="請輸入json設定"></textarea>
+								<div class="mui-button-row">
+									<button type="button" class="mui-btn mui-btn-success" onclick="importCustomCommand()">導入</button>
+									<button type="button" class="mui-btn mui-btn-primary" onclick="exportCustomCommand()">導出</button>
+								</div>
+							</div>
+						</li>
+					</ul>
+					
+					<div class="mui-button-row" id="customButton">							
+					  </div>
+        
+        <br>
+        
+         <h4>時間定時顯示</h4>
+					
+					<div class="mui-content-padded">  
+					 <h4 style='margin-top:15px;'>開始時間</h4>
+					 <div class="mui-input-row mui-input-range field-contain">
+					    <div style="float:left">
+					        <label >小時：</label>
+					        <input type="text" id='hueo_value'  value='23'>
+					    </div>
+					    
+					    <div style="margin-left:121px;">
+					        <input type="range" id='hueo'  value="12" oninput='sendHue("o")' min="0" max="23" />
+					    </div>				    
+					</div>
+					
+					<div class="mui-input-row mui-input-range field-contain">
+					    <div style="float:left">
+					        <label >分鐘：</label>
+					        <input type="text" id='huep_value'  value='30'>
+						</div>
+						<div style="margin-left:121px;">
+							<input type="range" id='huep'  value="30" oninput='sendHue("p")' min="0" max="59" />
+						</div>
+					</div>
+					
+					
+					<h4 style='margin-top:15px;'>結束時間</h4>
+					 <div class="mui-input-row mui-input-range field-contain">
+					    <div style="float:left">
+					        <label >小時：</label>
+					        <input type="text" id='hueq_value'  value='23'>
+					    </div>
+					    
+					    <div style="margin-left:121px;">
+					        <input type="range" id='hueq'  value="12" oninput='sendHue("q")' min="0" max="23" />
+					    </div>				    
+					</div>
+					
+					<div class="mui-input-row mui-input-range field-contain">
+					    <div style="float:left">
+					        <label >分鐘：</label>
+					        <input type="text" id='huer_value'  value='30'>
+						</div>
+						<div style="margin-left:121px;">
+							<input type="range" id='huer'  value="30" oninput='sendHue("r")' min="0" max="59" />
+						</div>
+					</div>
+					
+					</div>
+					
+					<div class="mui-button-row">
+					<button type="button" class="mui-btn mui-btn-success" onclick="configSave()">保存設定</button>
+					</div>
+					
+<br><br>			
+					<h4>已設定顯示時間</h4>
+					<ul class="mui-table-view">
+					  <li class="mui-table-view-cell ">	
+
+              <label >開始時間</label>
+					    <div class="mui-collapse-content">
+					     
+					   	 <div style="float:left">
+					     <div id='starthh'>
+					     </div>
+					     </div>
+					       
+							 <div style="float:left">
+					     <label >時 : </label>
+					     </div>
+
+	
+						    <div style="float:left">
+					      <div id='startmm'>
+					      </div>
+					      </div>
+					          
+							   <div style="float:left">
+					       <label >分</label>
+					       </div>
+					        
+			          </div>		
+					     
+					     <br>
+					     <div id='state'></div>		
+
+					     <br>
+					     
+              <label >結束時間</label>
+					    <div class="mui-collapse-content">
+					     
+					   		<div style="float:left">
+					      <div id='endhh'>
+					     </div>
+					     </div>
+					       
+							   <div style="float:left">
+					        <label >時 : </label>
+					        </div>
+
+	
+						    <div style="float:left">
+					      <div id='endmm'>
+					      </div>
+					      </div>
+					          
+							 <div style="float:left">
+					       <label >分 </label>
+					       </div>
+					       </div>		
+						</li>
+					 </ul> 
+
+
+
+		 
+				</div>
+				
+
+	
+	 <br>
+	
+	
+	
+	
+	
+	
+	
+				
+					</div>
+				
+			</div>	
+	
+		<script src="js/mui.min.js"></script>
+		<script src="js/websocket.js"></script>
+		
+		<script>
+			mui.init({
+				swipeBack: true ,//启用右滑关闭功能
+			});
+			// 定义下拉回调函数
+			function pulldownRefresh(){
+				location.reload();
+			}
+			(function($) {
+				$('#scroll').scroll({
+					indicators: true //是否显示滚动条
+				});
+				var segmentedControl = document.getElementById('segmentedControl');
+				$('.mui-input-group').on('change', 'input', function() {
+					if (this.checked) {
+						var styleEl = document.querySelector('input[name="style"]:checked');
+						var colorEl = document.querySelector('input[name="color"]:checked');
+						if (styleEl && colorEl) {
+							var style = styleEl.value;
+							var color = colorEl.value;
+							segmentedControl.className = 'mui-segmented-control' + (style ? (' mui-segmented-control-' + style) : '') + ' mui-segmented-control-' + color;
+						}
+					}
+				});
+			})(mui);
+			let connectStatus = document.getElementById('connectStatus');
+			let localServiceAddress = localStorage.getItem("serviceAddress");
+			let serviceAddress = "XMatrix";
+			if(localServiceAddress == "null"){
+				console.log('是空的');
+			}else{
+				console.log('不为空');
+				console.log(localServiceAddress);
+				$('.serviceAddress').val(localServiceAddress);
+				serviceAddress = localServiceAddress;
+			}
+			let localCustomCommand = localStorage.getItem("customCommand");
+			if(localCustomCommand != "null"){
+				console.log("自定义命令："+localCustomCommand);
+				$('#customCommand').val(localCustomCommand);
+			}
+			
+			
+			function nw() {return new WebSocket('ws://' + location.hostname + ':81/', ['arduino']); }
+
+			 
+			let ws = nw();
+		
+			
+			function connect(){
+			  	
+				serviceAddress = $('.serviceAddress').val();
+				//lert("手動連接IP："+serviceAddress);
+				ws = nw();
+				localStorage.setItem("serviceAddress",serviceAddress);
+				if(ws.readyState === ws.CLOSED){
+					mui.toast('連接失敗');
+					connectStatus.setAttribute("class", "mui-icon mui-icon-closeempty");
+				}else if(ws.readyState === ws.OPEN){
+					mui.toast('連接成功');
+					connectStatus.setAttribute("class", "mui-icon mui-icon-checkmarkempty");
+				}else if(ws.readyState === ws.CONNECTING){
+					mui.toast('連接中');
+					connectStatus.setAttribute("class", "mui-spinner");
+				}
+			};
+			
+			function sendCustomCommand(){
+				var customCommand = $('#customCommand').val();
+				if(customCommand != 'null' && customCommand != ''){
+					if(customCommand != localCustomCommand){
+						localStorage.setItem("customCommand",customCommand);
+					}
+					ws.send(customCommand);
+					mui.toast('已发送:'+customCommand);
+				}else{
+					mui.toast('命令不能为空');
+				}
+			}
+			
+			//播放GIF按鈕
+				function playGIFname(){
+				var GIFname = $('#GIFname_value').val();
+				if(GIFname != 'null' && GIFname != ''){
+					ws.send(GIFname);
+					mui.toast('檔名為:'+GIFname);
+				}else{
+					mui.toast('輸入不能空白');
+				}
+			}
+			
+			
+			
+			
+			
+			function clickCustomCommand(commandStr){
+				var customCommand;
+				if(typeof(commandStr) === undefined || commandStr == ''){
+					mui.toast('命令不能为空');
+				}else{
+					customCommand = commandStr.getAttribute("data-command");
+					if(customCommand != 'null'){
+						console.log("自定义命令："+customCommand);
+						ws.send(customCommand);
+						mui.toast('已发送:'+customCommand);
+					}
+				}
+			}
+			var int=self.setInterval("clock()",3000);
+			function clock()
+			{
+				if(ws.readyState === ws.CLOSED){
+					connectStatus.setAttribute("class", "mui-icon mui-icon-closeempty");
+				}else if(ws.readyState === ws.OPEN){
+					connectStatus.setAttribute("class", "mui-icon mui-icon-checkmarkempty");
+				}else if(ws.readyState === ws.CONNECTING){
+					connectStatus.setAttribute("class", "mui-spinner");
+				}
+			}
+			ws.onopen = function () { 
+				ws.send('Connect ' + new Date()); 
+				connectStatus.setAttribute("class", "mui-icon mui-icon-checkmarkempty");
+			}; 
+			ws.onerror = function (error) { console.log('WebSocket Error ', error); }; 
+			ws.onmessage = function (e) { 
+			
+				console.log('Server: ', e.data); 
+				if(e.data[0]=='{'){
+ 
+					console.log('json');
+					var jsonOb = eval('('+e.data+')');
+					var brightNess = typeof(jsonOb.brightNess)=='undefined'? 150:jsonOb.brightNess;
+					var mode = typeof(jsonOb.mode)=='undefined'? 2:jsonOb.mode;
+					var huea = typeof(jsonOb.huea)=='undefined'? 180:jsonOb.huea;
+					var hued = typeof(jsonOb.hued)=='undefined'? 180:jsonOb.hued;
+					var hueh = typeof(jsonOb.hueh)=='undefined'? 180:jsonOb.hueh;
+					var huem = typeof(jsonOb.huem)=='undefined'? 180:jsonOb.huem;
+					var hues = typeof(jsonOb.hues)=='undefined'? 180:jsonOb.hues;
+					var huew = typeof(jsonOb.huew)=='undefined'? 180:jsonOb.huew;
+					
+					var hueg = typeof(jsonOb.hueg)=='undefined'? 180:jsonOb.hueg;
+					var huen = typeof(jsonOb.huen)=='undefined'? 180:jsonOb.huen;	
+					
+					var hueo = typeof(jsonOb.hueo)=='undefined'? 180:jsonOb.hueo;
+					var huep = typeof(jsonOb.huep)=='undefined'? 180:jsonOb.huep;
+					var hueq = typeof(jsonOb.hueq)=='undefined'? 180:jsonOb.hueq;
+					var huer = typeof(jsonOb.huer)=='undefined'? 180:jsonOb.huer;
+					
+					var starthh = typeof(jsonOb.readstartH)=='undefined'? 23:jsonOb.readstartH;
+					var startmm = typeof(jsonOb.readstartM)=='undefined'? 59:jsonOb.readstartM;
+					var endhh = typeof(jsonOb.readendH)=='undefined'? 23:jsonOb.readendH;
+					var endmm = typeof(jsonOb.readendM)=='undefined'? 59:jsonOb.readendM;
+				
+
+					
+					mui.toast('數據同步完成');
+					
+					var clockMode = typeof(jsonOb.clockMode)=='undefined'? 1:jsonOb.clockMode;
+					var dateMode = typeof(jsonOb.dateMode)=='undefined'? 1:jsonOb.dateMode;
+					var loopMode = typeof(jsonOb.loopMode)=='undefined'? 1:jsonOb.loopMode;
+					var bFansMode = typeof(jsonOb.bFansMode)=='undefined'? 1:jsonOb.bFansMode;
+
+					
+					
+					$("input[name='radio-mode']").eq(mode-1).attr('checked','checked');
+					$("input[name='radio-clock']").eq(clockMode-1).attr('checked','checked');
+					$("input[name='radio-date']").eq(dateMode-1).attr('checked','checked');
+					$("input[name='radio-loop']").eq(loopMode-1).attr('checked','checked');
+					$("input[name='radio-bf']").eq(bFansMode-1).attr('checked','checked');
+					document.getElementById('bt').value=parseInt(brightNess);
+					document.getElementById('bt_value').value=parseInt(brightNess);
+					document.getElementById('huea').value=parseInt(huea);
+					document.getElementById('huea_value').value=parseInt(huea);
+					document.getElementById('hued').value=parseInt(hued);
+					document.getElementById('hued_value').value=parseInt(hued);
+					document.getElementById('hueh').value=parseInt(hueh);
+					document.getElementById('hueh_value').value=parseInt(hueh);
+					document.getElementById('huem').value=parseInt(huem);
+					document.getElementById('huem_value').value=parseInt(huem);
+					document.getElementById('hues').value=parseInt(hues);
+					document.getElementById('hues_value').value=parseInt(hues);
+					document.getElementById('huew').value=parseInt(huew);
+					document.getElementById('huew_value').value=parseInt(huew);
+					
+					document.getElementById('hueg').value=parseInt(hueg);
+					document.getElementById('hueg_value').value=parseInt(hueg);
+
+
+					document.getElementById('huen').value=parseInt(huen);
+					document.getElementById('huen_value').value=parseInt(huen)					
+
+					document.getElementById('hueo').value=parseInt(hueo);
+					document.getElementById('hueo_value').value=parseInt(hueo);
+					document.getElementById('huep').value=parseInt(huep);
+					document.getElementById('huep_value').value=parseInt(huep);
+					document.getElementById('hueq').value=parseInt(hueq);
+					document.getElementById('hueq_value').value=parseInt(hueq);
+					document.getElementById('huer').value=parseInt(huer);
+					document.getElementById('huer_value').value=parseInt(huer);
+
+          var state = "-- -- -- -- ";
+
+          document.getElementById('state').innerHTML = state;
+					document.getElementById('starthh').innerHTML= starthh;
+					document.getElementById('startmm').innerHTML= startmm;
+					document.getElementById('endhh').innerHTML= endhh;
+					document.getElementById('endmm').innerHTML= endmm;
+					
+					
+						   
+				}
+			};
+			ws.onclose = function(e){
+				
+			}
+			let customConfig = localStorage.getItem("commandJson");
+			let customObj = JSON.parse(customConfig);
+			let customButtonDiv = $("#customButton");
+			buttonRebuild(customObj);
+			function buttonRebuild(jsonObj){
+				try {
+					if(jsonObj.button != 'null'){
+						for (var key in jsonObj.button) {
+							customButtonDiv.append("<button type='button' id='cb' class='"+jsonObj.button[key].class+"' data-command='"+jsonObj.button[key].command +"' onclick='clickCustomCommand(this)'>"+jsonObj.button[key].name+"</button>&nbsp;");
+							if((parseInt(key)+1)%4 == 0){
+								customButtonDiv.append("<br id='cb'><br id='cb'>");
+							}
+						}
+					}else{
+						mui.toast('json错误');
+					}
+				}catch(e){
+					console.log('构建异常：'+e);
+				}
+				
+			}
+			function importCustomCommand(){
+				var btnArray = ['取消', '确认'];
+				mui.confirm('即将覆盖配置，确认导入json？', '确认提示', btnArray, function(e) {
+					if (e.index == 1) {
+						var newJsonCommand =  $('#jsonCommand').val();
+						console.log(newJsonCommand);
+						if(newJsonCommand == ''){
+							mui.toast('未填入json');
+						}else{
+							try {
+							    var jsonObj = JSON.parse(newJsonCommand);
+							    if(typeof jsonObj == 'object' && jsonObj ){
+							    	var x = document.getElementsByTagName("button");
+									var y = document.getElementsByTagName("br");
+							    	for(var i = 0;i<x.length;i++){
+							    		if(x[i].id == "cb"){
+							    			x[i].remove();
+							    			x.length -= 1;
+							    			i -= 1;
+							    		}
+							    	}
+									for(var j = 0;j<y.length;j++){
+										if(y[j].id == "cb"){
+											y[j].remove();
+											y.length -= 1;
+											j -= 1;
+										}
+									}
+									clear(customButtonDiv,true);
+							    	buttonRebuild(jsonObj);
+									localStorage.setItem("commandJson",newJsonCommand);
+							    }else{
+									mui.toast('json格式不正确');
+							    }
+							} catch(e) {
+							    mui.toast('json解析异常');
+							} finally {
+							    //结束处理
+							}
+						}
+					} else {
+						mui.toast('取消导入');
+						return;
+					}
+				})
+				
+			};
+			
+			function exportCustomCommand(){
+				var jsonStr = localStorage.getItem("commandJson");
+				$('#jsonCommand').val(jsonStr);
+			};
+			function clear(obj,test){
+			  var x=obj||document.getElementsByTagName('*'),i=x.length;
+			  while(i--){
+			    var y=x[i].childNodes,j=y.length;
+			    while(j--){
+			      if(y[j].nodeType==3){
+			        if(test==true){
+			          y[j].nodeValue=y[j].nodeValue.replace(/\s|&nbsp;/g,'')
+			        }else{
+			          if(!/\S/.test(y[j].nodeValue)){y[j].parentNode.removeChild(y[j])}
+			        }
+			      }
+			    }
+			  }
+			};
+		</script>
+
+
+
+            <script src='https://cdnjs.cloudflare.com/ajax/libs/tinycolor/1.5.1/tinycolor.min.js'></script>
+            <script>
+                var colorhex = 'FF0000';
+                function mouseOverColor(hex) {
+                    document.getElementById('divpreview').style.visibility = 'visible';
+                    document.getElementById('divpreview').style.backgroundColor = hex;
+                    document.body.style.cursor = 'pointer';
+                }
+                var hh = 0;
+                
+                function clickColor(hex, seltop, selleft, html5) {
+                    var c;
+                    if (html5 && html5 == 5)	{
+                        c = document.getElementById('html5colorpicker').value;
+                    } else {
+                        if (hex == 0)	{
+                            c = document.getElementById('entercolor').value;
+                        } else {
+                            c = hex;
+                        }
+                    }
+                    colorhex = tinycolor(c).toHexString();
+                    r = tinycolor(c).toRgb().r;
+                    g = tinycolor(c).toRgb().g;
+                    b = tinycolor(c).toRgb().b;
+   
+                    document.getElementById('html5colorpicker').value = tinycolor(colorhex).toHexString();
+                    select_color = colorhex;
+                    Sctx.fillStyle = select_color;
+                    Sctx.fillRect(0,0,300,300);
+                }
+                
+             
+                function changeAll() {
+                    var r = document.getElementById('valRed').innerHTML;
+                    var g = document.getElementById('valGreen').innerHTML;
+                    var b = document.getElementById('valBlue').innerHTML;
+                    document.getElementById('change').style.backgroundColor = 'rgb(' + r + ',' + g + ',' + b + ')';
+                    document.getElementById('changetxt').innerHTML = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+                    document.getElementById('changetxthex').innerHTML = tinycolor('rgb(' + r + ',' + g + ',' + b + ')').toHexString();
+                }
+
+                var select_color = '#000000';
+                const showColor = document.getElementById('selectedColor');
+                const Sctx = showColor.getContext( '2d' );
+
+                function run(canvas, obj) {
+                    obj = obj || {};
+                    this.canvas = canvas;
+                    this.cvs = canvas.getContext('2d');
+                    this.bgColor = obj.bgColor || '#000000';
+                    this.clickedColor = obj.clickedColor || '#000000';
+                    this.boxSize = obj.boxSize || 20;
+                    this.bgWidthLength = 0;
+                    this.bgHeightLength = 0;
+                    this.clickedArr = [];
+                    this.start();
+                    this.click();
+                    return this;
+                }
+
+                run.prototype.start = function(){
+                    this.bgWidthLength = parseInt( this.canvas.width / this.boxSize );
+                    this.bgHeightLength = parseInt( this.canvas.height / this.boxSize );
+                    this.drawBg();
+                }
+
+                run.prototype.click = function(){
+                    let move = this.mousemove.bind(this);
+                    this.canvas.addEventListener('mousedown',function(e){
+                        let o = this.computedXY(e.offsetX,e.offsetY);
+                        this.toggleClick(o);
+                        this.canvas.addEventListener('mousemove',move );
+                    }.bind(this));
+                    this.canvas.addEventListener('mouseup',function(e){
+                        this.canvas.removeEventListener('mousemove',move );
+                    }.bind(this));
+                }
+
+                run.prototype.mousemove = function(e){
+                    let o = this.computedXY(e.offsetX,e.offsetY);
+                    this.toggleClick(o,true);
+                }
+
+                run.prototype.computedXY = function(x,y){
+                    for( let i=0;i<this.bgWidthLength;i++ ){
+                        if( x > i*this.boxSize && x < (i+1)*this.boxSize ){
+                            x = i;
+                            break;
+                        }
+                    }
+                    for( let i=0;i<this.bgHeightLength;i++ ){
+                        if( y > i*this.boxSize && y < (i+1)*this.boxSize ){
+                            y = i;
+                            break;
+                        }
+                    }
+                    return {x,y};
+                }
+
+                run.prototype.toggleClick = function(o,draw){
+                    let has = {};
+                        has.is = true;
+                    this.clickedArr.forEach(function(item,index){
+
+                        if( item.x === o.x && item.y === o.y ){
+                            has.is = false;
+                            has.index = index;
+                        }
+                    })
+                    if(has.is){
+                        this.clickedArr.push(o);;
+                        this.drawBgBox(o.x*this.boxSize,o.y*this.boxSize,true);
+                    }
+                    if(!has.is && !draw){
+                        this.clickedArr.splice(has.index,1);
+                        this.drawBgBox( o.x*this.boxSize,o.y*this.boxSize );
+                    }
+                }
+
+                run.prototype.Random = function(length){
+                    for(let i=0;i<length;i++ ){
+                        let o = {};
+                            o.x = parseInt( Math.random() * this.bgWidthLength );
+                            o.y = parseInt( Math.random() * this.bgHeightLength );
+                        this.toggleClick(o);
+                    }
+                }
+
+                run.prototype.clean = function(){
+                    this.clickedArr.forEach(function(o,index){
+                        this.drawBgBox( o.x*this.boxSize , o.y*this.boxSize );
+                    }.bind(this));
+                    this.clickedArr = [];
+                }
+
+                run.prototype.show = function(img){
+                    this.clickedArr = [];
+                    for (var y = 0; y < 24; y++)
+                    {
+                        for(var x = 0; x < 24; x++){
+                            var imageData = img.getImageData(x, y, 1, 1).data;
+                            var rgb_str = 'rgb('+imageData[0]+','+imageData[1]+','+imageData[2]+')';
+                            this.drawBgBoxColor( x*this.boxSize , y*this.boxSize , setRgbTo16(rgb_str) );
+                            var o = {};
+                            o.x = x;
+                            o.y = y;
+                            this.clickedArr.push(o);
+                        }
+                    }
+                }
+
+                run.prototype.showChineseCharacters = function(dotStr){
+                    this.clickedArr = [];
+                    var dotArray = dotStr.split('');
+                    for (var y = 0; y < 11; y++)
+                    {
+                        for(var x = 0; x < 11; x++){
+                            var t = dotArray[x+11*y];
+                            if(t == 1){
+                                var rgb_str = 'rgb(81,131,230)';
+                            }else{
+                                var rgb_str = 'rgb(0,0,0)';
+                            }
+                            this.drawBgBoxColor( x*this.boxSize , y*this.boxSize , setRgbTo16(rgb_str) );
+                            var o = {};
+                            o.x = x;
+                            o.y = y;
+                            this.clickedArr.push(o);
+                        }
+                    }
+                }
+
+                run.prototype.drawBg = function(){
+                    for(let i=0;i<this.bgHeightLength;i++){
+                        for(let j=0;j<this.bgWidthLength;j++ ){
+                            this.drawBgBox(j*this.boxSize,i*this.boxSize);
+                        }
+                    }
+                }
+
+                run.prototype.drawBgBoxColor = function(x,y,color) {
+                    this.cvs.beginPath();
+                    this.cvs.fillStyle = color;
+                    this.cvs.fillRect(x+1, y+1, this.boxSize-1,this.boxSize-1 );
+                    this.cvs.fill();
+                    this.cvs.stroke();
+                    this.cvs.closePath();
+                }
+
+                run.prototype.drawBgBox = function(x,y,z) {
+                    this.cvs.beginPath();
+                    this.cvs.fillStyle = z ? select_color : this.bgColor;
+                    this.cvs.fillRect(x+1, y+1, this.boxSize-1,this.boxSize-1 );
+                    this.cvs.fill();
+                    this.cvs.stroke();
+                    this.cvs.closePath();
+                }
+                let canvas = document.getElementById('mainCanvas');
+                let cvs = canvas.getContext('2d');
+                let Pcvs = canvas.getContext('2d');
+                let a = new run(canvas);
+
+                function clearDraw(){
+                    console.log('清空');
+                    a.clean();
+                }
+                function send(){
+                    var canvasA = document.getElementById('mainCanvas');
+                    var imgs = canvasA.getContext('2d');
+                    imgs.drawImage(canvasA, 0, 0, 480, 480);
+                    var d = imgs.getImageData(0, 0, 480, 480).data;
+                    var t = 'o';
+                    var text = 'o';
+                    for (var i = 0; i < 24; i++)
+                    {
+                        for(var j = 0; j < 24; j++){
+                            var imageData = imgs.getImageData(j*20+5, i*20+5, 1, 1).data;
+                            t += cc(imageData[0]);
+                            t += cc(imageData[1]);
+                            t += cc(imageData[2]);
+                            text += imageData[0];
+                            text += imageData[1];
+                            text += imageData[2]+',';
+                        }
+                    }
+                    ws.send(t, { binary: true });
+                    console.log('发送了'+text);
+					          mui.toast('圖片已发送:'+customCommand);
+                }
+                function cc(c) { return String.fromCharCode(c/2); }
+            </script>
+
+
+
+            <script>   //漸變顏色
+                var colorhex = 'FF0000';
+                function mouseOverColor(hex) {
+                    document.getElementById('divpreview').style.visibility = 'visible';
+                    document.getElementById('divpreview').style.backgroundColor = hex;
+                    document.body.style.cursor = 'pointer';
+                }
+             
+              
+                function clickColorA(hex, seltop, selleft, html5) {
+                    var c;
+                    if (html5 && html5 == 5)	{
+                        c = document.getElementById('html5colorpickerA').value;
+                    } else {
+                        if (hex == 0)	{
+                            c = document.getElementById('entercolor').value;
+                        } else {
+                            c = hex;
+                        }
+                    }
+
+   
+                    document.getElementById('html5colorpickerA').value = tinycolor(colorhex).toHexString();
+                    select_color = colorhex;
+
+                }
+                
+               
+            function sendcolor(){
+                
+                    
+                  var  c = document.getElementById('html5colorpickerA').value;
+                  var  d = document.getElementById('html5colorpickerB').value;
+                    rc = tinycolor(c).toRgb().r;
+                    gc = tinycolor(c).toRgb().g;
+                    bc = tinycolor(c).toRgb().b;
+                    
+                    rd = tinycolor(d).toRgb().r;
+                    gd = tinycolor(d).toRgb().g;
+                    bd = tinycolor(d).toRgb().b;  
+
+	                 var oMessage = {
+	                               	 redA: rc,
+	                               	 greenA: gc,
+	                               	 blueA: bc,
+	                               	 
+	                               	 redB: rd,
+	                               	 greenB: gd,
+	                               	 blueB: bd,
+	                               	 random: 0	                               	 
+	                                 }; 
+	                 console.log('oMessage: ' + JSON.stringify(oMessage));
+	                 ws.send(JSON.stringify(oMessage)); 
+                  // ws.send(r);
+					          mui.toast('已发送RGB');
+                     }               
+               
+               
+               
+               
+            
+                
+                
+               </script>
+                
+                
+              <script type="text/javascript">
+                      // Create JoyStick object into the DIV 'joyDiv'
+                     var joy = new JoyStick('joyDiv');
+                   </script>
+
+     
+
+	</body>
+
+</html>
+
+
+
+
+
+
+
