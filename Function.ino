@@ -297,12 +297,15 @@ void configSync(uint8_t num){
   myObject["readstartM"] = read_start_M;
   myObject["readendH"] = read_end_H;
   myObject["readendM"] = read_end_M;
-  
-  
+    
   myObject["clockMode"] = clockMode;
   myObject["dateMode"] = dateMode;
-  myObject["bFansMode"] = bFansMode;
   myObject["loopMode"] = loopMode;
+  myObject["hueg"] = gifcount;
+  myObject["huen"] = random_gif_no;
+  myObject["hueu"] = random_min;
+  
+  
   String output;
   serializeJson(myObject, output);
   Serial.println(output);
@@ -552,7 +555,10 @@ void configSave(){
   EEPROM.write(EEPROM_END_M, end_M);
 
   EEPROM.write(EEPROM_LOOP_MODE, loopMode);
-
+  EEPROM.write(EEPROM_GIF_NO, random_gif_no);
+  EEPROM.write(EEPROM_GIF_COUNT, gifcount);
+  EEPROM.write(EEPROM_RANDOM_MIN, random_min);
+  
   EEPROM.commit();
   Serial.println(F("保存完畢"));
 
@@ -745,7 +751,7 @@ void ShowClock (){
     H = tm.tm_hour;
     M = tm.tm_min;
 
-    if(end_H != end2_H || end_M != end2_M )runonce =true;
+   // if(end_H != end2_H || end_M != end2_M )runonce =true;
 
     if(runonce == true){
       if(H == end_H && M == end_M ){

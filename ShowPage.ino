@@ -243,17 +243,16 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t *payload, size_t length)
                         break;   
                     case 'o':   
                         start_H = hh;
-                        
-                        Serial.print(F("HH值："));
-                        Serial.println(start_H);
-                        
                         break;
+                        
                     case 'p':
                         start_M = hh;
                         break;
+                        
                     case 'q':
                         end_H = hh;
                         break;
+                        
                     case 'r':
                         end_M = hh;
                         break;
@@ -261,6 +260,16 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t *payload, size_t length)
                     case 'g':
                         gifcount = hh;
                         break; 
+
+                    case 'n':
+                        random_gif_no = hh;
+                        break;                         
+
+                    case 'u':
+                        random_min = hh;
+                      //  Serial.print(F("UU值："));
+                       // Serial.println(random_min);
+                        break;      
                                                                                       
                     default:
                         break;

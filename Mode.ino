@@ -87,7 +87,7 @@ void onlyGif(){
     if ( millis() - GifTime > 15000){ 
 
           if ( GifRandom == true ){  
-             String numStr = String (random(1, 41));     //隨機數量  40 
+             String numStr = String (random(1, random_gif_no+1));     //隨機gif數量  預設40 
                    GIFname = numStr + ".gif";
               }
                

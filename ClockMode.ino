@@ -9,7 +9,7 @@ if ( millis() - last_H_Time > 60000){   //間隔20秒顯示一次 避免閃爍
 
 //時間H   變化/動畫效果
    if( tempH != H){
-   for(int i=-20;i<6;i++){
+   for(int i=-20;i<7;i++){
       display.fillRect(0,0,64,6,display.color565(0,0,0));
       showbigbitnumber(H,12,20,2,i,hsv2rgb(hueh, saturation, value)); 
       delay(3);
@@ -36,7 +36,7 @@ if ( millis() - last_M_Time > 25000){
   
 //時間M   變化/動畫效果
  if( tempM != M){
-   for(int i=-20;i<6;i++){
+   for(int i=-20;i<7;i++){
       display.fillRect(0,0,64,6,display.color565(0,0,0));
       showbigbitnumber(M,12,20,35,i,hsv2rgb(huem, saturation, value));  
       delay(3);
@@ -74,10 +74,10 @@ void ClockMode2(){
 //时钟模式3: HH:mm:ss
 void ClockMode3(){
 
- if ( millis() - last_H_Time > 6000){ 
+ if ( millis() - last_H_Time > 60000){ 
   //時間H   變化/動畫效果
    if( tempH != H){
-   for(int i=-20;i<6;i++){
+   for(int i=-20;i<3;i++){
       display.fillRect(0,0,64,2,display.color565(0,0,0));
       showbigbitnumber(H,12,20,3,i,hsv2rgb(hueh, saturation, value)); 
       delay(10);
@@ -99,17 +99,17 @@ last_H_Time = millis();
   showbigColon(32,18,colon,hsv2rgb(hue, saturation, value));
 
 
-if ( millis() - last_M_Time > 2500){ 
+if ( millis() - last_M_Time > 25000){ 
 //時間M   變化/動畫效果
  if( tempM != M){
-   for(int i=-20;i<6;i++){
+   for(int i=-20;i<3;i++){
       display.fillRect(0,0,64,2,display.color565(0,0,0));
       showbigbitnumber(M,12,20,36,i,hsv2rgb(huem, saturation, value));  
       delay(10);
     tempM = M;
   }
  }
-  showbigbitnumber(tempM,12,20,36,2,hsv2rgb(huem, saturation, value)); 
+ showbigbitnumber(tempM,12,20,36,2,hsv2rgb(huem, saturation, value)); 
   last_M_Time = millis();
   }
   
@@ -127,7 +127,7 @@ void ClockMode4(){
  
  //時間H   變化/動畫效果
    if( tempH != H){
-   for(int i=-20;i<6;i++){
+   for(int i=-20;i<7;i++){
       display.fillRect(0,0,64,6,display.color565(0,0,0));
       showbigbitnumber(H,12,20,9,i,hsv2rgb(hueh, saturation, value)); 
       delay(16);
@@ -150,7 +150,7 @@ void ClockMode4(){
 if ( millis() - last_M_Time > 2500){ 
   //時間M   變化/動畫效果
  if( tempM != M){
-   for(int i=-20;i<6;i++){
+   for(int i=-20;i<7;i++){
       display.fillRect(0,0,64,6,display.color565(0,0,0));
       showbigbitnumber(M,12,20,38,i,hsv2rgb(huem, saturation, value));  
       delay(16);
@@ -219,11 +219,13 @@ void ClockMode6(){
            ClockMode1();
       } 
       
-if ( millis() - lastTime > 300000){    //間隔30分鐘顯示時間
+if ( millis() - randomTime > random_min*60000){    //間隔 - 分鐘顯示時間
 
    randomMode = random(1, 6);
+   Serial.print(F("切換隨機模式："));
+   Serial.println(randomMode);
    display.clearDisplay();
-   lastTime = millis();
+   randomTime = millis();
  } 
   
 }
@@ -243,7 +245,8 @@ void showTime(bool implement)
     localtime_r(&now, &tm);
     H = tm.tm_hour;
     M = tm.tm_min;
-
+    S = tm.tm_sec;
+    D = tm.tm_wday;
 
        colorLoop = colorLoop+1;
       if(colorLoop>60) colorLoop = 1;
@@ -267,7 +270,10 @@ void showTime(bool implement)
       case 5:
            ClockMode5();           
       break;  
-              
+      case 6:
+           ClockMode6();           
+      break;  
+                    
       default:
            ClockMode1();
       }    

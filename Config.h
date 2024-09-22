@@ -88,6 +88,7 @@ unsigned long loopTime = 0;
 unsigned long modeLoopTime = 0;
 unsigned long colonTime = 0;
 unsigned long lastTime = 0;
+unsigned long randomTime = 0;
 unsigned long last_H_Time = 0;
 unsigned long last_M_Time = 0;
 unsigned long weatherTime = 0;
@@ -129,12 +130,16 @@ static const char FILE_NOT_FOUND[] PROGMEM = "FileNotFound";
 #define EEPROM_DATE_MODE    11 //日期风格
 #define EEPROM_LOOP_MODE    12 //切换风格
 #define EEPROM_T_TOPscore  13 //俄羅斯方塊最高分
-#define EEPROM_S_TOPscore  18  //貪食蛇最高分
+
 
 #define EEPROM_START_H    14 //時鐘顯示時間H
 #define EEPROM_START_M    15 
 #define EEPROM_END_H      16 
 #define EEPROM_END_M      17 
+#define EEPROM_S_TOPscore  18  //貪食蛇最高分
+#define EEPROM_GIF_NO      19   //隨機 /gifs 的數量 
+#define EEPROM_GIF_COUNT      20   //gif 播放次數 
+#define EEPROM_RANDOM_MIN      21   //隨機模式的間隔時間
 
 //#define EEPROM_B_FANS_MODE  13 //粉丝数风格
 //#define EEPROM_COLOR_B      14 //粉丝数颜色
@@ -158,12 +163,12 @@ int clockMode = 1;
 int randomMode = 1 ;
 int dateMode = 1;
 int loopMode = 1;
-int bFansMode = 2;
 int weatherMode = 1;
 int dateloopMode = 1;  //日期輪播參數
 int colorLoop = 0;
 int gifcount = 3 ;
-
+int random_gif_no = 40 ;
+int random_min = 30 ; //隨機模式的間隔時間
 
 
 //遊戲參數
@@ -178,8 +183,8 @@ int start_H = 0;
 int start_M = 0;
 int end_H = 0;
 int end_M = 0;
-int end2_H;
-int end2_M;
+//int end2_H;
+//int end2_M;
 
 int read_start_H = 0 ;
 int read_start_M = 0 ;

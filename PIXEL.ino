@@ -58,6 +58,8 @@ void setup(){
     read_start_M = int(EEPROM.read(EEPROM_START_M));
     read_end_H = int(EEPROM.read(EEPROM_END_H));
     read_end_M = int(EEPROM.read(EEPROM_END_M));
+    random_gif_no = int(EEPROM.read(EEPROM_GIF_NO));
+    random_min = int(EEPROM.read(EEPROM_RANDOM_MIN));
 
     start_H = read_start_H;
     start_M = read_start_M;
