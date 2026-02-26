@@ -1,11 +1,139 @@
 
 
+void SwitchMode(){
+ switch(Mode){
+      case 1:
+            ClockMode1();
+      break; 
+      case 2:
+            ClockMode2();      
+      break;       
+      case 3:
+            ClockMode3();      
+      break;        
+      case 4:
+            ClockMode4();      
+      break;
+      
+      case 5:
+            PacmanMode();                                    
+      break;        
+
+      case 6:
+            TetrisMode();                              
+      break;   
+
+      case 7:
+            MarioMode();                            
+      break;  
+
+      case 8:   
+            LifeMode();                       
+      break;  
+
+      case 9:          
+            BubbleMode();                        
+      break;
+
+      case 10:        
+              PokemonMode();                       
+      break;
+           
+      case 11:
+           ClockMode5();  
+      break;          
+
+                     
+      }    
+    } 
+
+
+void GetTime(){
+
+    time(&now);
+    localtime_r(&now, &tm);
+    H = tm.tm_hour;
+    M = tm.tm_min;
+    S = tm.tm_sec;
+    D = tm.tm_wday;
+    currentMonth = tm.tm_mon + 1 ;  //取得月份
+    monthDay = tm.tm_mday;          //取得日期
+
+// Serial.print(F("時間: ")); 
+ // Serial.print(H); 
+ //  Serial.print(F(":")); 
+ //    Serial.println(M); 
+   }
+
 /// ####  時鐘顯示模式   ####
 
-//时钟模式一 HH:mm
+
+//时钟模式一  HH:mm
 void ClockMode1(){        
 
+
 if ( millis() - last_H_Time > 60000){   //間隔20秒顯示一次 避免閃爍
+GetTime();
+
+  // 在繪圖前，最好先清空緩衝區，以避免殘影
+  display.fillScreen(display.color565(0, 0, 0)); 
+  
+//時間H   變化/動畫效果
+   if( tempH != H){
+   for(int i=-20;i<21;i++){
+      display.fillRect(0,0,64,20,display.color565(0,0,0));
+      showbigbitnumber(H,12,20,2,i,hsv2rgb(hueh, saturation, value)); 
+      delay(3);
+      tempH = H;    
+         }
+      }    
+     
+     showbigbitnumber(tempH,12,20,2,20,hsv2rgb(hueh, saturation, value));  
+     last_H_Time = millis();
+  } 
+
+  
+  if ( millis() - colonTime > 1000 )
+  {
+    colon = !colon;
+    colonTime = millis();
+  }
+  showbigColon(31,25,colon,hsv2rgb(hue, saturation, value));
+  showbigColon(31,34,colon,hsv2rgb(hue, saturation, value));
+      
+
+
+if ( millis() - last_M_Time > 25000){ 
+  
+//時間M   變化/動畫效果
+ if( tempM != M){
+   for(int i=-20;i<21;i++){
+      display.fillRect(0,0,64,20,display.color565(0,0,0));
+      showbigbitnumber(M,12,20,36,i,hsv2rgb(huem, saturation, value));  
+      delay(3);
+      tempM = M;
+           }
+         }
+
+  
+     showbigbitnumber(tempM,12,20,36,20,hsv2rgb(huem, saturation, value));
+     last_M_Time = millis();
+   
+           }  
+               
+         }
+
+
+
+
+
+//时钟模式一  HH:mm + 日期 
+void ClockMode2(){        
+
+
+if ( millis() - last_H_Time > 60000){   //間隔20秒顯示一次 避免閃爍
+GetTime();
+
 
 //時間H   變化/動畫效果
    if( tempH != H){
@@ -38,167 +166,120 @@ if ( millis() - last_M_Time > 25000){
  if( tempM != M){
    for(int i=-20;i<7;i++){
       display.fillRect(0,0,64,6,display.color565(0,0,0));
-      showbigbitnumber(M,12,20,35,i,hsv2rgb(huem, saturation, value));  
+      showbigbitnumber(M,12,20,36,i,hsv2rgb(huem, saturation, value));  
       delay(3);
       tempM = M;
            }
           }
-     showbigbitnumber(tempM,12,20,35,6,hsv2rgb(huem, saturation, value));
+     showbigbitnumber(tempM,12,20,36,6,hsv2rgb(huem, saturation, value));
      last_M_Time = millis();
-  } 
-}
-
-
-
-
-//时钟模式2  漸變HH:mm
-void ClockMode2(){        
-  
-  if ( millis() - colonTime > 1000 )
-  {
-    colon = !colon;
-    colonTime = millis();
-  }
-  showbigColon(31,11,colon,hsv2rgb(hue, saturation, value));
-  showbigColon(31,20,colon,hsv2rgb(hue, saturation, value));
-
-    if(randomColor)random_color();
-    ShowColorNumber(H,12,20,2,6);   //  顯示漸變H
-    ShowColorNumber(M,12,20,35,6);  //  顯示漸變M
-
  
-}
 
 
+  //顯示 日期 星期
+  display.fillRect(0,33,64,64,display.color565(0,0,0));
 
-//时钟模式3: HH:mm:ss
-void ClockMode3(){
+   showbit12number(currentMonth,7,12,2,35,hsv2rgb(hueh, saturation, value));  // 數字月
+   showbitmapWeek(9,9,12,22,35,hsv2rgb(huew, saturation, value));   //月
+   showbit12number(monthDay,7,12,35,35,hsv2rgb(huem, saturation, value));    // 數字日
+   showbitmapWeek(0,9,12,54,35,hsv2rgb(huew, saturation, value));   //日
 
- if ( millis() - last_H_Time > 60000){ 
-  //時間H   變化/動畫效果
-   if( tempH != H){
-   for(int i=-20;i<3;i++){
-      display.fillRect(0,0,64,2,display.color565(0,0,0));
-      showbigbitnumber(H,12,20,3,i,hsv2rgb(hueh, saturation, value)); 
-      delay(10);
-    tempH = H;
-  }
- }   
-showbigbitnumber(tempH,12,20,3,2,hsv2rgb(hueh, saturation, value));
-last_H_Time = millis();
-} 
-
-
-
-  if ( millis() - colonTime > 1000 )
-  {
-    colon = !colon;
-    colonTime = millis();
-  }
-  showbigColon(32,8,colon,hsv2rgb(hue, saturation, value));
-  showbigColon(32,18,colon,hsv2rgb(hue, saturation, value));
-
-
-if ( millis() - last_M_Time > 25000){ 
-//時間M   變化/動畫效果
- if( tempM != M){
-   for(int i=-20;i<3;i++){
-      display.fillRect(0,0,64,2,display.color565(0,0,0));
-      showbigbitnumber(M,12,20,36,i,hsv2rgb(huem, saturation, value));  
-      delay(10);
-    tempM = M;
-  }
- }
- showbigbitnumber(tempM,12,20,36,2,hsv2rgb(huem, saturation, value)); 
-  last_M_Time = millis();
-  }
-  
-  showbitnumber(S,5,8,36,24,hsv2rgb(hues, saturation, value));
-}
-
-
-
-//时钟模式4:  圖片emoji:時HH:分mm
-void ClockMode4(){
+   showbitmapWeek(7,9,12,14,50,hsv2rgb(huew, saturation, value));   //星
+   showbitmapWeek(8,9,12,26,50,hsv2rgb(huew, saturation, value));   //期
    
-  SetEmojiXY(pic_x, pic_y, 0 ,10);
-
- if ( millis() - last_H_Time > 6000){ 
- 
- //時間H   變化/動畫效果
-   if( tempH != H){
-   for(int i=-20;i<7;i++){
-      display.fillRect(0,0,64,6,display.color565(0,0,0));
-      showbigbitnumber(H,12,20,9,i,hsv2rgb(hueh, saturation, value)); 
-      delay(16);
-    tempH = H;
-  }
- }     
-  showbigbitnumber(tempH,12,20,9,6,hsv2rgb(hueh, saturation, value));
-  last_H_Time = millis();
-} 
-
+   if(D == 6) showbitmapWeek(D,9,12,40,50,display.color565(0,255,0));  
+   else if (D == 0) showbitmapWeek(D,9,12,40,50,display.color565(255,0,0)); 
+   else showbitmapWeek(D,9,12,40,50,hsv2rgb(hueh, saturation, value));  
   
-  if ( millis() - colonTime > 1000 )
-  {
-    colon = !colon;
-    colonTime = millis();
-  }
-  showbigColon(36,11,colon,hsv2rgb(hue, saturation, value));
-  showbigColon(36,20,colon,hsv2rgb(hue, saturation, value));
-
-if ( millis() - last_M_Time > 2500){ 
-  //時間M   變化/動畫效果
- if( tempM != M){
-   for(int i=-20;i<7;i++){
-      display.fillRect(0,0,64,6,display.color565(0,0,0));
-      showbigbitnumber(M,12,20,38,i,hsv2rgb(huem, saturation, value));  
-      delay(16);
-    tempM = M;
-  }
- }
-  showbigbitnumber(tempM,12,20,38,6,hsv2rgb(huem, saturation, value)); 
-   last_M_Time = millis();
-  }
+   
+ } 
+          
 }
 
 
-//时钟模式5: GIF時鐘 + HH:mm
-void ClockMode5(){
-  
-    time(&now);
-    localtime_r(&now, &tm);
-    H = tm.tm_hour;
-    M = tm.tm_min;
+
+
+
+//时钟模式  HH:mm  + GIF
+void ClockMode3(){        
+
 
 //間隔30秒顯示時間
 if ( millis() - lastTime > 30000){  
 
- //清空時鐘顯示區域
-    for (int x = 40; x<64; x++) {
-       for (int y = 0; y<32; y++) {
-              display.drawPixel(x,y,display.color565(0,0,0));
-                 }
-                 lastTime = millis();
-                }  
-    
-    show15bitnumber(H,9,14,40,1,hsv2rgb(hueh, saturation, value));   
-     display.drawPixel(48,16,hsv2rgb(hue, saturation, value));
-     display.drawPixel(53,16,hsv2rgb(hue, saturation, value));
-    show15bitnumber(M,9,14,40,18,hsv2rgb(huem, saturation, value)); 
-       }  
+      GetTime();
+     //清空時鐘顯示區域
+     display.fillRect(0,0,64,14,display.color565(0,0,0));
+
+     showbit12number(H,7,12,14,1,hsv2rgb(hueh, saturation, value));   
+     display.drawPixel(32,4,hsv2rgb(hue, saturation, value));
+     display.drawPixel(32,8,hsv2rgb(hue, saturation, value));
+     showbit12number(M,7,12,35,1,hsv2rgb(huem, saturation, value)); 
+        
+         GifClock = true ;    //  啟用 讓Gif 配合時間  向下偏移 
+
+          if(GifRandom)  randomGif();
+          else playGif();  
+          
+         GifClock = false ;
+         lastTime = millis();
+       }   
+}
 
 
 
-   onlyGif();  //間隔時間 播放gif
+//大时钟模式  HH:mm  + GIF
+void ClockMode4(){        
 
-     } //end ClockMode5
+
+//間隔30秒顯示時間
+if ( millis() - lastTime > 30000){  
+
+      GetTime();
+     //清空時鐘顯示區域
+     display.fillRect(0,0,64,14,display.color565(0,0,0));
+
+     showbit12number(H,7,12,14,1,hsv2rgb(hueh, saturation, value));   
+     display.drawPixel(32,4,hsv2rgb(hue, saturation, value));
+     display.drawPixel(32,8,hsv2rgb(hue, saturation, value));
+     showbit12number(M,7,12,35,1,hsv2rgb(huem, saturation, value)); 
+        
+         GifClock = true ;    //  啟用 讓Gif 配合時間  向下偏移 
+
+          if(GifRandom)  randomGif();
+          else playGif();  
+          
+         GifClock = false ;
+
+      delay(6000);
+      display.clearDisplay();
+      showbigbitnumber(H,12,20,2,20,hsv2rgb(hueh, saturation, value)); 
+      showbigbitnumber(M,12,20,36,20,hsv2rgb(huem, saturation, value));
+      drawFastXLine(31,25,2,hsv2rgb(hue, saturation, value));
+      drawFastXLine(31,34,2,hsv2rgb(hue, saturation, value));
+       
+      delay(10000); 
+   
+         lastTime = millis();
+       }   
+}
+
+
 
 
  //隨機模式
-void ClockMode6(){
+void ClockMode5(){
+
+  // 針對pacman模式 初始化
+  if (randomMode != lastRandomMode) {
+    if (randomMode == 5 || randomMode == 7) {
+      ModefirstRun = true; // 只要切換到模式 5，就強制重置初始化標記
+    }
+    lastRandomMode = randomMode; // 更新紀錄
+  }
 
 
+   
   switch(randomMode){
       case 1:
             ClockMode1();
@@ -209,19 +290,43 @@ void ClockMode6(){
       case 3:     
            ClockMode3();    
       break;
-      case 4:
-           ClockMode4();
-       break;
-      case 5:
-           ClockMode5();           
-      break;                      
+      
+      case 4:     
+           ClockMode4();    
+      break; 
+
+      case 5:              
+           PacmanMode(); 
+      break;  
+
+      case 6:              
+           TetrisMode(); 
+      break;  
+
+      case 7:
+            MarioMode();                            
+      break;  
+
+      case 8:
+            LifeMode();                         
+      break;  
+
+      case 9:
+            BubbleMode();                         
+      break;  
+
+      case 10:
+            PokemonMode();                         
+      break;       
+                          
       default:
            ClockMode1();
       } 
       
 if ( millis() - randomTime > random_min*60000){    //間隔 - 分鐘顯示時間
 
-   randomMode = random(1, 6);
+
+   randomMode = random(1, 11);
    Serial.print(F("切換隨機模式："));
    Serial.println(randomMode);
    display.clearDisplay();
@@ -229,155 +334,3 @@ if ( millis() - randomTime > random_min*60000){    //間隔 - 分鐘顯示時間
  } 
   
 }
-
-
-
-
-
-/// ####  時鐘顯示 功能   ####
-
-//显示时间
-void showTime(bool implement)
-{
-   if ( millis() - ColorTime > 400 | implement)  //控制漸變顏色頻率/秒速
-  {
-    time(&now);
-    localtime_r(&now, &tm);
-    H = tm.tm_hour;
-    M = tm.tm_min;
-    S = tm.tm_sec;
-    D = tm.tm_wday;
-
-       colorLoop = colorLoop+1;
-      if(colorLoop>60) colorLoop = 1;
-  ColorTime = millis();
-  }  
-  
-  //時間模式
-  switch(clockMode){
-      case 1:
-            ClockMode1();
-      break; 
-      case 2:
-            ClockMode2();
-      break; 
-      case 3:     
-           ClockMode3();    
-      break;
-      case 4:
-           ClockMode4();
-       break;
-      case 5:
-           ClockMode5();           
-      break;  
-      case 6:
-           ClockMode6();           
-      break;  
-                    
-      default:
-           ClockMode1();
-      }    
-    } //end showTime
-
-
-
-
-//显示日期
-void showMouthDay() {
- if ( millis() - lastTime > 2000)
-  {
-    time(&now);
-    localtime_r(&now, &tm); 
-    currentMonth = tm.tm_mon + 1 ;  //取得月份
-    monthDay = tm.tm_mday;          //取得日期
-    D = tm.tm_wday;                 //取得星期
-
-    lastTime = millis();
-    display.clearDisplay();   
-   }
-
-  switch(dateMode){
-    case 1:
-      showbigbitnumber(currentMonth,12,20,2,6,hsv2rgb(hueh, saturation, value));
-      drawFastYLine(31,10,10,display.color565(255,255,255));
-      showbigbitnumber(monthDay,12,20,35,6,hsv2rgb(huem, saturation, value));
-     
-      //星期
-      showWeek(10,29,huew,5);
-      break;
-    case 2:
-      SetEmojiXY(pic_x, pic_y, 0, 10);
-      showbigbitnumber(currentMonth,12,20,9,6,hsv2rgb(hueh, saturation, value));
-      drawFastYLine(36,10,10,display.color565(255,255,255));
-      showbigbitnumber(monthDay,12,20,38,6,hsv2rgb(huem, saturation, value)); 
-
-      //星期
-      showWeek(10,29,huew,5);
-      break;
-  }
-
-
-}
-
-
-
-//显示 星期  (顯示格子位置代表星期)
-void showWeek(int x, int y, int colorhue, int len) {
-  for(int i=0;i<7;i++){
-    drawFastXLine(x+i*(len+1),y+1,len,display.color565(255,255,255));
-   // drawFastXLine(x+i*(len+1),y,len,hsv2rgb(colorhue, saturation, value));
-  }
-  int d = D;
-
-  if(D == 0){    //星期日 紅色
-      d = 7;
-      drawFastXLine(x+(d-1)*(len+1),y,len,hsv2rgb(1, saturation, value));  
-     }
-     
-   if(D == 6){    //星期六 綠色
-     drawFastXLine(x+(d-1)*(len+1),y,len,hsv2rgb(120, saturation, value));
-      }
-      
-   drawFastXLine(x+(d-1)*(len+1),y,len,hsv2rgb(colorhue, saturation, value));
-  
-}
-
-
-//模式2  時間+日期輪播
-void showDateLoop(bool implement){ 
-
-    if(millis() - loopTime > 10000 && !implement){
-      if(++dateloopMode>2) dateloopMode=1;
-      loopTime = millis();
-      display.clearDisplay();
-    }
-    
-    switch(dateloopMode){
-      case 1:
-      showTime(false);
-      break;
-      case 2:
-      showMouthDay();
-      break;
-                       }
-    
-}
-
-
-
-//显示时钟的冒号方法
-void showColon(int x,int y,bool l,uint16_t colorxy){
-  String pstr = "101";
-  for(int j = y; j < y+3; j = j + (1)){
-    if (String(pstr.charAt(j-y)).toInt() != 0) {
-      if(l){
-        display.drawPixel(x,j,colorxy);
-     }else{
-       display.drawPixel(x,j,display.color565(0, 0, 0));
-     }
-    } else {
-      display.drawPixel(x,j,display.color565(0, 0, 0));
-    }
-  }
-}
-    
